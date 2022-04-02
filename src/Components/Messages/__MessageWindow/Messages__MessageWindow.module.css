@@ -1,0 +1,15 @@
+.messageWindow {
+  display: grid;
+}
+textarea {
+  margin-top: 50px;
+}
+
+button {
+  width: 100px;
+  height: 30px;
+  justify-self: center;
+}
+button:hover {
+  background-color: aliceblue;
+}

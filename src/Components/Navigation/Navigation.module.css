@@ -1,0 +1,21 @@
+.nav {
+  grid-area: n;
+  color: red;
+  background: linear-gradient(#833ab4, #fd1d1d, #fcb045);
+  padding: 20px;
+  opacity: 0.8;
+}
+
+.item a {
+  color: white;
+  text-decoration: none;
+}
+.item a:hover {
+  color: gold;
+}
+.item .activeLink {
+  color: black;
+}
+.item .disableLink {
+  color: white;
+}
