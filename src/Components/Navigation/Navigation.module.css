@@ -1,19 +1,24 @@
 .nav {
   grid-area: n;
-  background-color: #edeef0;
+  background-color: aliceblue;
   padding: 20px;
 }
 
 .item a {
-  color: white;
+  color: gray;
   text-decoration: none;
+  margin-left: 3rem;
+  padding: 0.2rem 0.6rem;
 }
 .item a:hover {
-  color: gold;
+  background-color: rgba(82, 170, 243, 0.5);
 }
 .item .activeLink {
   color: black;
 }
 .item .disableLink {
-  color: white;
+  color: gray;
+}
+.item {
+  margin-bottom: 0.5rem;
 }

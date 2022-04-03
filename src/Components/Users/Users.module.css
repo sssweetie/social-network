@@ -1,10 +1,54 @@
 .avatar {
-  border-radius: 30px;
-  width: 50px;
-  height: 50px;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  align-self: center;
+}
+.avatarName {
+  grid: ava;
+}
+.gridButton {
+  grid-area: button;
+  align-self: center;
+}
+.status {
+  grid-area: status;
+  align-self: center;
+}
+.location {
+  font-size: 12px;
 }
 .users {
   background-color: aliceblue;
   margin: auto;
-  width: 50%;
+  margin-bottom: 10px;
+  width: 40%;
+  padding: 1rem;
+  border: 0.2rem solid rgba(101, 109, 114, 0.3);
+  display: grid;
+  grid-template-areas:
+    "ava status button"
+    "ava status button";
+  grid-template-columns: 3fr 5fr 3fr;
+}
+.description {
+  font-size: 14px;
+}
+button {
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4c87af;
+  border: none;
+}
+
+button:hover {
+  background-color: #396786;
+}
+
+button:active {
+  background-color: #4c87af;
+  transform: translateY(4px);
 }

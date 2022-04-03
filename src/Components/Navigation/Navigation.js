@@ -34,6 +34,16 @@ function Navigation() {
         <a>Music</a>
       </div>
       <div className={styles.item}>
+        <NavLink
+          to="/users"
+          className={(navData) =>
+            navData.isActive ? styles.activeLink : styles.disableLink
+          }
+        >
+          Users
+        </NavLink>
+      </div>
+      <div className={styles.item}>
         <a>Settings</a>
       </div>
     </nav>
