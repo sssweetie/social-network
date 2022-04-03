@@ -18,6 +18,11 @@
 .location {
   font-size: 12px;
 }
+.getUsers {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
 .users {
   background-color: aliceblue;
   margin: auto;

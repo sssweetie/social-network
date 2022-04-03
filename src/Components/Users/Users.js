@@ -4,10 +4,13 @@ import * as axios from "axios";
 import avatar from "./avatar.jpeg";
 function Users(props) {
   console.log(axios.get("https://social-network.samuraijs.com/api/1.0/users"));
-  if (props.users.length === 0) {
-    axios
-      .get("https://social-network.samuraijs.com/api/1.0/users")
-      .then((response) => props.setUsers(response.data.items));
+  let getUsers = () => {
+    if (props.users.length === 0) {
+      axios
+        .get("https://social-network.samuraijs.com/api/1.0/users")
+        .then((response) => props.setUsers(response.data.items));
+    }
+
     // props.setUsers([
     //   {
     //     id: "1",
@@ -58,7 +61,7 @@ function Users(props) {
     //       "https://sun9-12.userapi.com/impf/zp35cVkz1dcQ64GzFQC8Lrp8w7srADXe9Cfg_Q/mzNwEXYGuWs.jpg?size=1486x1531&quality=95&sign=40d8139633919d1740cebd8c57e499c2&type=album",
     //   },
     // ]);
-  }
+  };
 
   return (
     <div className={styles.grid}>
@@ -90,6 +93,9 @@ function Users(props) {
           </div>
         </div>
       ))}
+      <div className={styles.getUsers}>
+        <button onClick={getUsers}>Get users</button>
+      </div>
     </div>
   );
 }
