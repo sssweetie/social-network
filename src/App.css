@@ -9,6 +9,5 @@
 }
 .app-wrapper-content {
   grid-area: c;
-  color: green;
-  background: linear-gradient(#22c1c3, #fdbb2d);
+  background-color: rgb(186, 217, 228);
 }

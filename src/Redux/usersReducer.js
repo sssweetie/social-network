@@ -7,16 +7,17 @@ function usersReducer(state = initialState, action) {
     case IS_FOLLOWED: {
       return {
         ...state,
-        users: state.users.map((u) => {
-          if (u.id === action.userID) {
-            return { ...u, followed: !u.followed };
+        users: state.users.map((user) => {
+          if (user.id === action.userID) {
+            return { ...user, followed: !user.followed };
           }
-          return u;
+          return user;
         }),
       };
     }
     case SET_USERS: {
-      return { ...state, users: [...state.users, ...action.users] };
+      debugger;
+      return { ...state, users: action.users };
     }
     default:
       return state;

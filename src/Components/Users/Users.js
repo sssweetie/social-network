@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "./Users.module.css";
 function Users(props) {
+  debugger;
   if (props.users.length === 0) {
+    debugger;
     props.setUsers([
       {
         id: "1",
@@ -53,34 +55,36 @@ function Users(props) {
       },
     ]);
   }
+  debugger;
+
   return (
     <div>
-      {props.users.map((u) => (
-        <div key={u.id}>
-          <span>
+      {props.users.map((user) => (
+        <div key={user.id} className={styles.users}>
+          <div>
             <div>
-              <img className={styles.avatar} src={u.avatar}></img>
+              <img className={styles.avatar} src={user.avatar}></img>
             </div>
             <div>
-              {u.followed ? (
-                <button onClick={() => props.onToggleFollow(u.id)}>
+              {user.followed ? (
+                <button onClick={() => props.onToggleFollow(user.id)}>
                   FOLLOWED
                 </button>
               ) : (
-                <button onClick={() => props.onToggleFollow(u.id)}>
+                <button onClick={() => props.onToggleFollow(user.id)}>
                   UNFOLLOWED
                 </button>
               )}
             </div>
-          </span>
+          </div>
           <span>
             <span>
-              <div>{u.name}</div>
-              <div>{u.status}</div>
+              <div>{user.name}</div>
+              <div>{user.status}</div>
             </span>
             <span>
-              <div>{u.location.country}</div>
-              <div>{u.location.city}</div>
+              <div>{user.location.country}</div>
+              <div>{user.location.city}</div>
             </span>
           </span>
         </div>

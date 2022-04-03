@@ -6,7 +6,7 @@ import Messages from "./Components/Messages/Messages";
 import UsersContainer from "./Components/Users/UsersContainer";
 import { Route, Routes } from "react-router-dom";
 
-const App = (props) => {
+const App = () => {
   return (
     <div className="app-wrapper">
       <Header></Header>

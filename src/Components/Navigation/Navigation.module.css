@@ -1,9 +1,7 @@
 .nav {
   grid-area: n;
-  color: red;
-  background: linear-gradient(#833ab4, #fd1d1d, #fcb045);
+  background-color: #edeef0;
   padding: 20px;
-  opacity: 0.8;
 }
 
 .item a {
