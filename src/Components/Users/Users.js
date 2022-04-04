@@ -34,20 +34,22 @@ export class Users extends Component {
 
     return (
       <div className={styles.grid}>
-        <div>
+        <div className={styles.flexPages}>
           {pages.map((page) => {
-            return (
+            return this.props.currentPage + 3 > page ? (
               <a
                 key={page}
                 className={
                   this.props.currentPage === page
-                    ? styles.chosenPage
-                    : styles.unChosenPage
+                    ? `${styles.chosenPage} ${styles.page}`
+                    : `${styles.unChosenPage} + ${styles.page}`
                 }
                 onClick={() => this.onPageChanged(page)}
               >
                 {page}
               </a>
+            ) : (
+              <a></a>
             );
           })}
         </div>
