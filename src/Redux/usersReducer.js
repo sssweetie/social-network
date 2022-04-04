@@ -1,7 +1,14 @@
 import React from "react";
 const IS_FOLLOWED = "IS-FOLLOWED";
 const SET_USERS = "SET-USERS";
-let initialState = { users: [] };
+const SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
+const SET_TOTAL_USERS = "SET-TOTAL-USERS";
+let initialState = {
+  users: [],
+  pageSize: 4,
+  totalUsersSize: 0,
+  currentPage: 1,
+};
 function usersReducer(state = initialState, action) {
   switch (action.type) {
     case IS_FOLLOWED: {
@@ -18,6 +25,12 @@ function usersReducer(state = initialState, action) {
     case SET_USERS: {
       return { ...state, users: action.users };
     }
+    case SET_CURRENT_PAGE: {
+      return { ...state, currentPage: action.currentPage };
+    }
+    case SET_TOTAL_USERS: {
+      return { ...state, totalUsersSize: action.totalCount };
+    }
     default:
       return state;
   }
@@ -28,4 +41,12 @@ export const onToggleFollowActionCreator = (userID) => ({
   userID,
 });
 export const setUsersActionCreator = (users) => ({ type: SET_USERS, users });
+export const setCurrentPageActionCreator = (currentPage) => ({
+  type: SET_CURRENT_PAGE,
+  currentPage,
+});
+export const setTotalUsersActionCreator = (totalCount) => ({
+  type: SET_TOTAL_USERS,
+  totalCount,
+});
 export default usersReducer;

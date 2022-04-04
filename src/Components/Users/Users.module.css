@@ -7,6 +7,12 @@
 .avatarName {
   grid: ava;
 }
+.chosenPage {
+  color: yellow;
+}
+.unChosenPage {
+  cursor: pointer;
+}
 .gridButton {
   grid-area: button;
   align-self: center;
