@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  onToggleFollowActionCreator,
-  setCurrentPageActionCreator,
-  setUsersActionCreator,
-  setTotalUsersActionCreator,
-  isFetchingActionCreator,
+  onToggleFollow,
+  setCurrentPage,
+  setUsers,
+  setTotalUsers,
+  setStatusFetching,
 } from "../../Redux/usersReducer";
 import * as axios from "axios";
 import Users from "./Users";
@@ -63,24 +63,30 @@ let mapStateToProps = (state) => {
   };
 };
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    onToggleFollow: (userId) => {
-      dispatch(onToggleFollowActionCreator(userId));
-    },
-    setUsers: (users) => {
-      dispatch(setUsersActionCreator(users));
-    },
-    setCurrentPage: (currentPage) => {
-      dispatch(setCurrentPageActionCreator(currentPage));
-    },
-    setTotalUsers: (totalCount) => {
-      dispatch(setTotalUsersActionCreator(totalCount));
-    },
-    setStatusFetching: (status) => {
-      dispatch(isFetchingActionCreator(status));
-    },
-  };
-};
+// let mapDispatchToProps = (dispatch) => {
+//   return {
+//     onToggleFollow: (userId) => {
+//       dispatch(onToggleFollowActionCreator(userId));
+//     },
+//     setUsers: (users) => {
+//       dispatch(setUsersActionCreator(users));
+//     },
+//     setCurrentPage: (currentPage) => {
+//       dispatch(setCurrentPageActionCreator(currentPage));
+//     },
+//     setTotalUsers: (totalCount) => {
+//       dispatch(setTotalUsersActionCreator(totalCount));
+//     },
+//     setStatusFetching: (status) => {
+//       dispatch(isFetchingActionCreator(status));
+//     },
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersAPI);
+export default connect(mapStateToProps, {
+  onToggleFollow,
+  setUsers,
+  setCurrentPage,
+  setTotalUsers,
+  setStatusFetching,
+})(UsersAPI);
