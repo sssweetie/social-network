@@ -3,11 +3,13 @@ const IS_FOLLOWED = "IS-FOLLOWED";
 const SET_USERS = "SET-USERS";
 const SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
 const SET_TOTAL_USERS = "SET-TOTAL-USERS";
+const FETCHING = "FETCHING";
 let initialState = {
   users: [],
   pageSize: 4,
   totalUsersSize: 0,
   currentPage: 1,
+  isFetching: false,
 };
 function usersReducer(state = initialState, action) {
   switch (action.type) {
@@ -31,6 +33,9 @@ function usersReducer(state = initialState, action) {
     case SET_TOTAL_USERS: {
       return { ...state, totalUsersSize: action.totalCount };
     }
+    case FETCHING: {
+      return { ...state, isFetching: action.status };
+    }
     default:
       return state;
   }
@@ -49,4 +54,5 @@ export const setTotalUsersActionCreator = (totalCount) => ({
   type: SET_TOTAL_USERS,
   totalCount,
 });
+export const isFetchingActionCreator = (status) => ({ type: FETCHING, status });
 export default usersReducer;

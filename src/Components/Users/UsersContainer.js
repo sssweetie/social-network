@@ -1,12 +1,57 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   onToggleFollowActionCreator,
   setCurrentPageActionCreator,
   setUsersActionCreator,
   setTotalUsersActionCreator,
+  isFetchingActionCreator,
 } from "../../Redux/usersReducer";
+import * as axios from "axios";
 import Users from "./Users";
+import Preloader from "../Preloader/Preloader";
+class UsersAPI extends Component {
+  componentDidMount() {
+    axios
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
+      )
+      .then((response) => {
+        return (
+          this.props.setStatusFetching(false),
+          this.props.setUsers(response.data.items),
+          this.props.setTotalUsers(response.data.totalCount)
+        );
+      });
+  }
+  onPageChanged = (page) => {
+    this.props.setStatusFetching(true);
+    this.props.setCurrentPage(page);
+    axios
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`
+      )
+      .then((response) => {
+        this.props.setStatusFetching(false);
+        this.props.setUsers(response.data.items);
+      });
+  };
+  render() {
+    return (
+      <>
+        {this.props.isFetching ? <Preloader /> : null}
+        <Users
+          totalUsersSize={this.props.totalUsersSize}
+          pageSize={this.props.pageSize}
+          currentPage={this.props.currentPage}
+          users={this.props.users}
+          onPageChanged={this.onPageChanged}
+          onToggleFollow={this.props.onToggleFollow}
+        ></Users>
+      </>
+    );
+  }
+}
 
 let mapStateToProps = (state) => {
   return {
@@ -14,6 +59,7 @@ let mapStateToProps = (state) => {
     pageSize: state.usersPage.pageSize,
     totalUsersSize: state.usersPage.totalUsersSize,
     currentPage: state.usersPage.currentPage,
+    isFetching: state.usersPage.isFetching,
   };
 };
 
@@ -31,7 +77,10 @@ let mapDispatchToProps = (dispatch) => {
     setTotalUsers: (totalCount) => {
       dispatch(setTotalUsersActionCreator(totalCount));
     },
+    setStatusFetching: (status) => {
+      dispatch(isFetchingActionCreator(status));
+    },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersAPI);
