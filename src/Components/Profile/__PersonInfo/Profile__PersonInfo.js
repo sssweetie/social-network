@@ -3,7 +3,6 @@ import Preloader from "../../Preloader/Preloader";
 import styles from "./Profile__PersonInfo.module.css";
 function Profile__PersonInfo(props) {
   if (!props.profile) {
-    console.log(props.profile);
     return <Preloader></Preloader>;
   } else {
     return (

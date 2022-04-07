@@ -6,7 +6,7 @@ function Navigation() {
     <nav className={styles.nav}>
       <div className={styles.item}>
         <NavLink
-          to="/profile"
+          to="/profile/2"
           className={(navData) =>
             navData.isActive ? styles.activeLink : styles.disableLink
           }
