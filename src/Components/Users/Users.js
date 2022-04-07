@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Users.module.css";
 import avatar from "./avatar.jpeg";
-import axios from "axios";
 import { NavLink } from "react-router-dom";
+import { apiAxios } from "../../API/api";
 function Users(props) {
   let pagesCount = Math.ceil(props.totalUsersSize / props.pageSize);
 
@@ -53,22 +53,11 @@ function Users(props) {
             {!user.followed ? (
               <button
                 onClick={() => {
-                  axios
-                    .post(
-                      `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
-                      {},
-                      {
-                        withCredentials: true,
-                        headers: {
-                          "API-KEY": "0086f8be-cdf1-4d9f-b77f-025c4385c376",
-                        },
-                      }
-                    )
-                    .then((response) => {
-                      if (response.data.resultCode === 0) {
-                        props.onToggleFollow(user.id);
-                      }
-                    });
+                  apiAxios.followUser(user.id).then((response) => {
+                    if (response.data.resultCode === 0) {
+                      props.onToggleFollow(user.id);
+                    }
+                  });
                 }}
               >
                 FOLLOWED
@@ -76,21 +65,11 @@ function Users(props) {
             ) : (
               <button
                 onClick={() => {
-                  axios
-                    .delete(
-                      `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
-                      {
-                        withCredentials: true,
-                        headers: {
-                          "API-KEY": "0086f8be-cdf1-4d9f-b77f-025c4385c376",
-                        },
-                      }
-                    )
-                    .then((response) => {
-                      if (response.data.resultCode === 0) {
-                        props.onToggleFollow(user.id);
-                      }
-                    });
+                  apiAxios.unfollowUser(user.id).then((response) => {
+                    if (response.data.resultCode === 0) {
+                      props.onToggleFollow(user.id);
+                    }
+                  });
                 }}
               >
                 UNFOLLOWED
