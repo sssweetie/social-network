@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Users.module.css";
 import avatar from "./avatar.jpeg";
+import axios from "axios";
 import { NavLink } from "react-router-dom";
 function Users(props) {
   let pagesCount = Math.ceil(props.totalUsersSize / props.pageSize);
@@ -10,7 +11,6 @@ function Users(props) {
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i);
   }
-
   return (
     <div className={styles.grid}>
       <div className={styles.flexPages}>
@@ -50,12 +50,49 @@ function Users(props) {
             </div>
           </div>
           <div className={styles.gridButton}>
-            {user.followed ? (
-              <button onClick={() => props.onToggleFollow(user.id)}>
+            {!user.followed ? (
+              <button
+                onClick={() => {
+                  axios
+                    .post(
+                      `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
+                      {},
+                      {
+                        withCredentials: true,
+                        headers: {
+                          "API-KEY": "0086f8be-cdf1-4d9f-b77f-025c4385c376",
+                        },
+                      }
+                    )
+                    .then((response) => {
+                      if (response.data.resultCode === 0) {
+                        props.onToggleFollow(user.id);
+                      }
+                    });
+                }}
+              >
                 FOLLOWED
               </button>
             ) : (
-              <button onClick={() => props.onToggleFollow(user.id)}>
+              <button
+                onClick={() => {
+                  axios
+                    .delete(
+                      `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
+                      {
+                        withCredentials: true,
+                        headers: {
+                          "API-KEY": "0086f8be-cdf1-4d9f-b77f-025c4385c376",
+                        },
+                      }
+                    )
+                    .then((response) => {
+                      if (response.data.resultCode === 0) {
+                        props.onToggleFollow(user.id);
+                      }
+                    });
+                }}
+              >
                 UNFOLLOWED
               </button>
             )}

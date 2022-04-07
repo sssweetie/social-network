@@ -10,7 +10,6 @@ export class HeaderContainer extends Component {
         withCredentials: true,
       })
       .then((response) => {
-        console.log(response.data);
         if (response.data.resultCode === 0) {
           let { id, email, login } = response.data.data;
           this.props.setLoginUserData(id, email, login);
