@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./Users.module.css";
 import avatar from "./avatar.jpeg";
 import { NavLink } from "react-router-dom";
-import { apiAxios } from "../../API/api";
 function Users(props) {
   let pagesCount = Math.ceil(props.totalUsersSize / props.pageSize);
 
@@ -50,37 +49,28 @@ function Users(props) {
             </div>
           </div>
           <div className={styles.gridButton}>
-            {!user.followed ? (
+            {user.followed ? (
               <button
+                disabled={props.isFollowing.some((id) => id === user.id)}
                 onClick={() => {
-                  apiAxios.followUser(user.id).then((response) => {
-                    if (response.data.resultCode === 0) {
-                      props.onToggleFollow(user.id);
-                    }
-                  });
+                  props.unfollowThunkCreator(user.id);
                 }}
               >
-                FOLLOWED
+                UNFOLLOW
               </button>
             ) : (
               <button
+                disabled={props.isFollowing.some((id) => id === user.id)}
                 onClick={() => {
-                  apiAxios.unfollowUser(user.id).then((response) => {
-                    if (response.data.resultCode === 0) {
-                      props.onToggleFollow(user.id);
-                    }
-                  });
+                  props.followThunkCreator(user.id);
                 }}
               >
-                UNFOLLOWED
+                FOLLOW
               </button>
             )}
           </div>
         </div>
       ))}
-      {/* <div className={styles.getUsers}>
-    <button onClick={this.getUsers}>Get users</button>
-  </div> */}
     </div>
   );
 }

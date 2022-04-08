@@ -1,7 +1,10 @@
 import React from "react";
+import { apiAxios } from "../API/api";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_POST = "UPDATE-POST";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
+
 let initialState = {
   postData: [
     { id: 0, message: "Hi everyone", likeCount: "15" },
@@ -10,6 +13,7 @@ let initialState = {
   postNewText: "Here is your new post...",
   profile: null,
 };
+
 function profileReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_POST: {
@@ -46,5 +50,16 @@ export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
   profile,
 });
+
+export const setUserProfileThunkCreator = (userId) => {
+  return (dispatch) => {
+    if (!userId) {
+      userId = 1;
+    }
+    apiAxios
+      .getUserProfile(userId)
+      .then((data) => dispatch(setUserProfile(data)));
+  };
+};
 
 export default profileReducer;

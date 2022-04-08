@@ -61,7 +61,7 @@
 .description {
   font-size: 14px;
 }
-button {
+/* button {
   cursor: pointer;
   text-align: center;
   text-decoration: none;
@@ -78,5 +78,5 @@ button:hover {
 button:active {
   background-color: #4c87af;
   transform: translateY(4px);
-}
+} */
 
