@@ -9,7 +9,10 @@ function Profile__PersonInfo(props) {
     return (
       <div>
         <img src={props.profile.photos.large}></img>
-        <ProfileStatus></ProfileStatus>
+        <ProfileStatus
+          updateStatus={props.updateStatus}
+          status={props.status}
+        />
       </div>
     );
   }

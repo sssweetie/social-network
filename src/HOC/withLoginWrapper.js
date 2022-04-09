@@ -9,7 +9,9 @@ function isLoginWrapper(Component) {
     if (!props.isLogin) return <Navigate return to="/login" />;
     return <Component {...props} params={params} />;
   };
-  ComponentContainer = connect(mapStateToPropsWrapper)(ComponentContainer);
-  return ComponentContainer;
+  let WithLoginComponentContainer = connect(mapStateToPropsWrapper)(
+    ComponentContainer
+  );
+  return WithLoginComponentContainer;
 }
 export default isLoginWrapper;

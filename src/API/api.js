@@ -19,10 +19,18 @@ export const apiAxios = {
   unfollowUser(id) {
     return instance.delete(`follow/${id}`);
   },
+  loginUser() {
+    return instance.get(`auth/me`).then((response) => response);
+  },
+};
+export const profileAPI = {
   getUserProfile(id) {
     return instance.get(`profile/${id}`).then((response) => response.data);
   },
-  loginUser() {
-    return instance.get(`auth/me`).then((response) => response);
+  getStatus(id) {
+    return instance.get(`profile/status/${id}`);
+  },
+  updateStatus(status) {
+    return instance.put(`profile/status`, { status: status });
   },
 };

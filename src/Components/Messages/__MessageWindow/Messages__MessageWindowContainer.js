@@ -5,7 +5,7 @@ import {
   updateMessageActionCreator,
 } from "../../../Redux/messagesReducer";
 import { connect } from "react-redux";
-import { isLoginRedirect } from "../../../HOC/isLoginRedirect";
+import isLoginWrapper from "../../../HOC/isLoginRedirect";
 import { compose } from "redux";
 
 let mapStateToProps = (state) => {
@@ -27,5 +27,5 @@ let mapDispatchToProps = (dispatch) => {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  isLoginRedirect
+  isLoginWrapper
 )(Messages__MessageWindow);

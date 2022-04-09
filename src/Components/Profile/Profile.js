@@ -4,7 +4,11 @@ import PersonInfo from "./__PersonInfo/Profile__PersonInfo";
 function Profile(props) {
   return (
     <div>
-      <PersonInfo profile={props.profile}></PersonInfo>
+      <PersonInfo
+        profile={props.profile}
+        status={props.status}
+        updateStatus={props.updateStatus}
+      ></PersonInfo>
       <Posts></Posts>
     </div>
   );

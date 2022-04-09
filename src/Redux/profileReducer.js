@@ -1,9 +1,10 @@
 import React from "react";
-import { apiAxios } from "../API/api";
+import { profileAPI } from "../API/api";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_POST = "UPDATE-POST";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
+const SET_STATUS = "SET-STATUS";
 
 let initialState = {
   postData: [
@@ -12,6 +13,7 @@ let initialState = {
   ],
   postNewText: "Here is your new post...",
   profile: null,
+  status: "",
 };
 
 function profileReducer(state = initialState, action) {
@@ -34,6 +36,9 @@ function profileReducer(state = initialState, action) {
     case SET_USER_PROFILE: {
       return { ...state, profile: action.profile };
     }
+    case SET_STATUS: {
+      return { ...state, status: action.status };
+    }
     default:
       return state;
   }
@@ -51,15 +56,27 @@ export const setUserProfile = (profile) => ({
   profile,
 });
 
-export const setUserProfileThunkCreator = (userId) => {
-  return (dispatch) => {
-    if (!userId) {
-      userId = 23246;
-    }
-    apiAxios
-      .getUserProfile(userId)
-      .then((data) => dispatch(setUserProfile(data)));
-  };
+export const setStatus = (status) => ({ type: SET_STATUS, status });
+
+export const setUserProfileThunkCreator = (userId) => (dispatch) => {
+  if (!userId) {
+    userId = 23246;
+  }
+  profileAPI
+    .getUserProfile(userId)
+    .then((data) => dispatch(setUserProfile(data)));
+};
+
+export const getStatusThunkCreator = (userId) => (dispatch) => {
+  profileAPI
+    .getStatus(userId)
+    .then((response) => dispatch(setStatus(response.data)));
+};
+
+export const updateStatusThunkCreator = (status) => (dispatch) => {
+  profileAPI.updateStatus(status).then((response) => {
+    if (response.resultCode === 0) dispatch(setStatus(status));
+  });
 };
 
 export default profileReducer;
