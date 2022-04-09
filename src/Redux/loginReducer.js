@@ -23,8 +23,8 @@ export const setLoginUserData = (userId, email, login) => ({
 export const loginThunkCreator = () => {
   return (dispatch) => {
     apiAxios.loginUser().then((response) => {
-      if (response.resultCode === 0) {
-        let { id, email, login } = response.data;
+      if (response.data.resultCode === 0) {
+        let { id, email, login } = response.data.data;
         dispatch(setLoginUserData(id, email, login));
       }
     });

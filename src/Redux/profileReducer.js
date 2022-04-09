@@ -54,7 +54,7 @@ export const setUserProfile = (profile) => ({
 export const setUserProfileThunkCreator = (userId) => {
   return (dispatch) => {
     if (!userId) {
-      userId = 1;
+      userId = 23246;
     }
     apiAxios
       .getUserProfile(userId)

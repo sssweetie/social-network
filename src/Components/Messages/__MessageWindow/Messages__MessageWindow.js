@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Messages__MessageWindow.module.css";
 import Message from "./_Message/Messages_Message";
+import { useNavigate } from "react-router-dom";
 function Messages__MessageWindow(props) {
   let messageElement = props.messageData.map((message) => (
     <Message id={message.id} key={message.id} text={message.text}></Message>
@@ -15,6 +16,13 @@ function Messages__MessageWindow(props) {
   let onChangeUpdateMessage = () => {
     props.onChangeUpdateNewMessage(textAreaRef.current.value);
   };
+  let navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!props.isLogin) {
+      navigate("/login");
+    }
+  });
 
   return (
     <div className={styles.messageWindow}>

@@ -14,10 +14,10 @@ export const apiAxios = {
       .then((response) => response.data);
   },
   followUser(id) {
-    return instance.post(`follow/${id}`).then((response) => response);
+    return instance.post(`follow/${id}`);
   },
   unfollowUser(id) {
-    return instance.delete(`follow/${id}`).then((response) => response);
+    return instance.delete(`follow/${id}`);
   },
   getUserProfile(id) {
     return instance.get(`profile/${id}`).then((response) => response.data);

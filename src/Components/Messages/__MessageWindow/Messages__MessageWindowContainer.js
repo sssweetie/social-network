@@ -9,6 +9,7 @@ let mapStateToProps = (state) => {
   return {
     messageNewText: state.messagesPage.messageNewText,
     messageData: state.messagesPage.messageData,
+    isLogin: state.loginForm.isLogin,
   };
 };
 let mapDispatchToProps = (dispatch) => {

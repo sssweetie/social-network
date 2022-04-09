@@ -10,7 +10,10 @@ function Header(props) {
           navData.isActive ? styles.activeLink : styles.disableLink
         }
       >
-        <img src="https://media.discordapp.net/attachments/959904939096834048/960028115395035136/132131231.png"></img>
+        <img
+          src="https://media.discordapp.net/attachments/959904939096834048/960028115395035136/132131231.png"
+          alt="Avatar of profile"
+        ></img>
       </NavLink>
       {props.isLogin ? props.login : <NavLink to="/login">Login</NavLink>}
     </header>
