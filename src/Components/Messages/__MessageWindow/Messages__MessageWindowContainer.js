@@ -5,13 +5,16 @@ import {
   updateMessageActionCreator,
 } from "../../../Redux/messagesReducer";
 import { connect } from "react-redux";
+import { isLoginRedirect } from "../../../HOC/isLoginRedirect";
+import { compose } from "redux";
+
 let mapStateToProps = (state) => {
   return {
     messageNewText: state.messagesPage.messageNewText,
     messageData: state.messagesPage.messageData,
-    isLogin: state.loginForm.isLogin,
   };
 };
+
 let mapDispatchToProps = (dispatch) => {
   return {
     onChangeUpdateNewMessage: (message) =>
@@ -21,9 +24,8 @@ let mapDispatchToProps = (dispatch) => {
     },
   };
 };
-const Messages__MessageWindowContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Messages__MessageWindow);
 
-export default Messages__MessageWindowContainer;
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  isLoginRedirect
+)(Messages__MessageWindow);

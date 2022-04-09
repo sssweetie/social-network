@@ -1,19 +1,15 @@
 import React from "react";
 import Preloader from "../../Preloader/Preloader";
 import styles from "./Profile__PersonInfo.module.css";
+import ProfileStatus from "./_ProfileStatus/Profile_ProfileStatus";
 function Profile__PersonInfo(props) {
   if (!props.profile) {
     return <Preloader></Preloader>;
   } else {
     return (
       <div>
-        <img
-          className={styles.backgroundImage}
-          src="https://static.vecteezy.com/system/resources/previews/002/207/827/large_2x/abstract-neon-background-free-vector.jpg"
-        ></img>
-        <div>
-          <img src={props.profile.photos.large}></img>
-        </div>
+        <img src={props.profile.photos.large}></img>
+        <ProfileStatus></ProfileStatus>
       </div>
     );
   }
