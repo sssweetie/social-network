@@ -64,7 +64,7 @@ export const setUserProfileThunkCreator = (userId) => (dispatch) => {
   }
   profileAPI
     .getUserProfile(userId)
-    .then((data) => dispatch(setUserProfile(data)));
+    .then((response) => dispatch(setUserProfile(response.data)));
 };
 
 export const getStatusThunkCreator = (userId) => (dispatch) => {
@@ -75,7 +75,7 @@ export const getStatusThunkCreator = (userId) => (dispatch) => {
 
 export const updateStatusThunkCreator = (status) => (dispatch) => {
   profileAPI.updateStatus(status).then((response) => {
-    if (response.resultCode === 0) dispatch(setStatus(status));
+    if (response.data.resultCode === 0) dispatch(setStatus(status));
   });
 };
 

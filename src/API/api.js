@@ -20,12 +20,12 @@ export const apiAxios = {
     return instance.delete(`follow/${id}`);
   },
   loginUser() {
-    return instance.get(`auth/me`).then((response) => response);
+    return instance.get(`auth/me`);
   },
 };
 export const profileAPI = {
   getUserProfile(id) {
-    return instance.get(`profile/${id}`).then((response) => response.data);
+    return instance.get(`profile/${id}`);
   },
   getStatus(id) {
     return instance.get(`profile/status/${id}`);
