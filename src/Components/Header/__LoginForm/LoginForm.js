@@ -1,8 +1,10 @@
 import React from "react";
 import { reduxForm, Field } from "redux-form";
-
+import { Element } from "../../../utils/FormControls/FormControls";
+import { requiredField } from "../../../utils/Validators/validators";
+const Input = Element("input");
 function LoginPage(props) {
-  const onSubmit = (formData) => {
+  const pushData = (formData) => {
     props.loginUserThunkCreator(
       formData.email,
       formData.password,
@@ -12,19 +14,38 @@ function LoginPage(props) {
   };
 
   return (
-    <div>
-      <LoginReduxForm {...props} onSubmit={onSubmit}></LoginReduxForm>
-    </div>
+    <LoginReduxForm
+      loginUserThunkCreator={props.loginUserThunkCreator}
+      onSubmit={pushData}
+    ></LoginReduxForm>
   );
 }
 
 const LoginForm = (props) => {
   return (
-    <form {...props} onSubmit={props.handleSubmit}>
-      <Field placeholder="email" component="input" name="email"></Field>
-      <Field placeholder="password" component="input" name="password"></Field>
-      <Field type="checkbox" component="input" name="rememberMe"></Field>
-      remember me 
+    <form
+      loginUserThunkCreator={props.loginUserThunkCreator}
+      onSubmit={props.handleSubmit}
+    >
+      <Field
+        placeholder="email"
+        component={Input}
+        validate={[requiredField]}
+        name="email"
+      ></Field>
+      <Field
+        placeholder="password"
+        component={Input}
+        validate={[requiredField]}
+        name="password"
+      ></Field>
+      <Field
+        type="checkbox"
+        component={Input}
+        validate={[requiredField]}
+        name="rememberMe"
+      ></Field>
+      remember me
       <button>Login</button>
     </form>
   );

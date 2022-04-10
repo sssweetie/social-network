@@ -3,15 +3,8 @@ import { LoginForm } from "./LoginForm";
 import { connect } from "react-redux";
 import { loginUserThunkCreator } from "../../../Redux/loginReducer";
 
-function LoginFormContainer(props) {
-  return <LoginForm {...props}></LoginForm>;
-}
+let mapStateToProps = (state) => {
+  return { userId: state.loginForm.userId };
+};
 
-let mapStateToProps = (state) => ({
-  userId: state.loginForm.userId,
-});
-
-export default connect(
-  mapStateToProps,
-  loginUserThunkCreator
-)(LoginFormContainer);
+export default connect(mapStateToProps, loginUserThunkCreator)(LoginForm);
