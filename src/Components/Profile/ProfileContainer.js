@@ -11,6 +11,10 @@ import { compose } from "redux";
 
 export class ProfileContainer extends Component {
   componentDidMount() {
+    let userId = this.props.params.userId;
+    if (!userId) {
+      userId = this.props.userId;
+    }
     this.props.setUserProfileThunkCreator(this.props.params.userId);
     this.props.getStatusThunkCreator(this.props.params.userId);
   }
@@ -31,6 +35,8 @@ export class ProfileContainer extends Component {
 let mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
   status: state.profilePage.status,
+  userId: state.loginForm.userId,
+  isLogin: state.loginForm.isLogin,
 });
 
 export default compose(

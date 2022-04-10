@@ -5,6 +5,7 @@ import { requiredField } from "../../../utils/Validators/validators";
 import { connect } from "react-redux";
 import { loginUserThunkCreator } from "../../../Redux/loginReducer";
 import { Navigate } from "react-router-dom";
+import styles from "./LoginForm.module.css";
 const Input = Element("input");
 
 const LoginForm = (props) => {
@@ -29,6 +30,7 @@ const LoginForm = (props) => {
         name="rememberMe"
       ></Field>
       remember me
+      {props.error ? <div className={styles.formError}>{props.error}</div> : ""}
       <button>Login</button>
     </form>
   );

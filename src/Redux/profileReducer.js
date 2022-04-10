@@ -51,9 +51,7 @@ export const setUserProfile = (profile) => ({
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 
 export const setUserProfileThunkCreator = (userId) => (dispatch) => {
-  if (!userId) {
-    userId = 23246;
-  }
+
   profileAPI
     .getUserProfile(userId)
     .then((response) => dispatch(setUserProfile(response.data)));

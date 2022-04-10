@@ -1,4 +1,5 @@
 import React from "react";
+import { stopSubmit } from "redux-form";
 import { apiAxios, loginAPI } from "../API/api";
 const SET_LOGIN_USER_DATA = "SET-LOGIN-USER-DATA";
 const LOGIN_USER = "LOGIN-USER";
@@ -31,6 +32,16 @@ export const loginUserThunkCreator =
     loginAPI.loginUser(email, password, rememberMe).then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(loginThunkCreator());
+      } else {
+        let message =
+          response.data.messages.length > 0
+            ? response.data.messages[0]
+            : "Error";
+        dispatch(
+          stopSubmit("login", {
+            _error: message,
+          })
+        );
       }
     });
   };
