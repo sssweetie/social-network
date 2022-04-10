@@ -1,9 +1,6 @@
 import React from "react";
 import Messages__MessageWindow from "./Messages__MessageWindow";
-import {
-  addMessageActionCreator,
-  updateMessageActionCreator,
-} from "../../../Redux/messagesReducer";
+import { addMessageActionCreator } from "../../../Redux/messagesReducer";
 import { connect } from "react-redux";
 import isLoginWrapper from "../../../HOC/isLoginRedirect";
 import { compose } from "redux";
@@ -17,10 +14,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    onChangeUpdateNewMessage: (message) =>
-      dispatch(updateMessageActionCreator(message)),
-    onClickAddNewMessage: () => {
-      dispatch(addMessageActionCreator());
+    onClickAddNewMessage: (message) => {
+      dispatch(addMessageActionCreator(message));
     },
   };
 };

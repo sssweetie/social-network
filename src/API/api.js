@@ -34,3 +34,19 @@ export const profileAPI = {
     return instance.put(`profile/status`, { status: status });
   },
 };
+export const loginAPI = {
+  loginUser(email, password, rememberMe, captcha) {
+    return (
+      instance.post(`auth/login`),
+      {
+        email: email,
+        password: password,
+        rememberMe: rememberMe,
+        captcha: captcha,
+      }
+    );
+  },
+  logoutUser() {
+    return instance.delete(`auth/login`), {};
+  },
+};

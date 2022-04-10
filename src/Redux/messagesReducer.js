@@ -1,6 +1,5 @@
 import React from "react";
 const ADD_MESSAGE = "ADD-MESSAGE";
-const UPDATE_MESSAGE = "UPDATE-MESSAGE";
 let initialState = {
   dialogData: [
     {
@@ -29,25 +28,17 @@ let initialState = {
     { text: "Test text", id: 2 },
     { text: "Another text", id: 3 },
   ],
-  messageNewText: "Sample text",
 };
 function messagesReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_MESSAGE: {
       let newMessage = {
-        text: state.messageNewText,
+        text: action.message,
         id: state.messageData.length,
       };
       return {
         ...state,
         messageData: [...state.messageData, newMessage],
-        messageNewText: "",
-      };
-    }
-    case UPDATE_MESSAGE: {
-      return {
-        ...state,
-        messageNewText: action.message,
       };
     }
     default:
@@ -55,10 +46,9 @@ function messagesReducer(state = initialState, action) {
   }
 }
 
-export const addMessageActionCreator = () => ({ type: ADD_MESSAGE });
-
-export const updateMessageActionCreator = (text) => ({
-  type: UPDATE_MESSAGE,
-  message: text,
+export const addMessageActionCreator = (message) => ({
+  type: ADD_MESSAGE,
+  message: message,
 });
+
 export default messagesReducer;
