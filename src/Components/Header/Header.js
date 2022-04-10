@@ -16,6 +16,7 @@ function Header(props) {
         ></img>
       </NavLink>
       {props.isLogin ? props.login : <NavLink to="/login">Login</NavLink>}
+      <button onClick={props.logoutUserThunkCreator}>Logout</button>
     </header>
   );
 }

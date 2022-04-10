@@ -12,36 +12,42 @@ let initialState = {
 function loginReducer(state = initialState, action) {
   switch (action.type) {
     case SET_LOGIN_USER_DATA:
-      return { ...state, ...action.data, isLogin: true };
+      return { ...state, ...action.data };
     case LOGIN_USER:
       return { ...state, userId: action.userId };
     default:
       return state;
   }
 }
-export const setLoginUserData = (userId, email, login) => ({
+export const setLoginUserData = (userId, email, login, isLogin) => ({
   type: SET_LOGIN_USER_DATA,
-  data: { userId, email, login },
+  data: { userId, email, login, isLogin },
 });
 
 export const loginUser = (userId) => ({ type: LOGIN_USER, userId });
 
 export const loginUserThunkCreator =
-  (email, password, rememberMe, captcha) => (dispatch) => {
-    loginAPI
-      .loginUser(email, password, rememberMe, captcha)
-      .then((response) => {
-        if (response.data.resultCode === 0) {
-          dispatch(loginUser(response.data.userId));
-        }
-      });
+  (email, password, rememberMe) => (dispatch) => {
+    loginAPI.loginUser(email, password, rememberMe).then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(loginThunkCreator());
+      }
+    });
   };
+
+export const logoutUserThunkCreator = () => (dispatch) => {
+  loginAPI.logoutUser().then((response) => {
+    if (response.data.resultCode === 0) {
+      dispatch(setLoginUserData(null, null, null, false));
+    }
+  });
+};
 
 export const loginThunkCreator = () => (dispatch) => {
   apiAxios.loginUser().then((response) => {
     if (response.data.resultCode === 0) {
       let { id, email, login } = response.data.data;
-      dispatch(setLoginUserData(id, email, login));
+      dispatch(setLoginUserData(id, email, login, true));
     }
   });
 };

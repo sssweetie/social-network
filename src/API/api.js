@@ -35,18 +35,14 @@ export const profileAPI = {
   },
 };
 export const loginAPI = {
-  loginUser(email, password, rememberMe, captcha) {
-    return (
-      instance.post(`auth/login`),
-      {
-        email: email,
-        password: password,
-        rememberMe: rememberMe,
-        captcha: captcha,
-      }
-    );
+  loginUser(email, password, rememberMe = false) {
+    return instance.post(`auth/login`, {
+      email: email,
+      password: password,
+      rememberMe: rememberMe,
+    });
   },
   logoutUser() {
-    return instance.delete(`auth/login`), {};
+    return instance.delete(`auth/login`);
   },
 };
