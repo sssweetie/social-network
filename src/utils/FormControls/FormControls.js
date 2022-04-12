@@ -9,7 +9,14 @@ export const Element =
         className={styles.formControls + " " + (isError ? styles.error : "")}
       >
         <Element {...props} {...input}></Element>
-        {isError ? <span>{meta.error}</span> : ""}
+        {isError ? (
+          <div>
+            <br></br>
+            <label>{meta.error}</label>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     );
   };

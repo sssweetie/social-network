@@ -10,6 +10,14 @@ import {
 } from "../../Redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
+import {
+  getUsers,
+  getCurrentPage,
+  getFetchingStatus,
+  getFollowingStatus,
+  getPageSize,
+  getTotalUsersSize,
+} from "../../Redux/selectors/userSelector";
 class UsersAPI extends Component {
   componentDidMount() {
     this.props.getUsersThunkCreator(
@@ -39,14 +47,25 @@ class UsersAPI extends Component {
   }
 }
 
+// let mapStateToProps = (state) => {
+//   return {
+//     users: state.usersPage.users,
+//     pageSize: state.usersPage.pageSize,
+//     totalUsersSize: state.usersPage.totalUsersSize,
+//     currentPage: state.usersPage.currentPage,
+//     isFetching: state.usersPage.isFetching,
+//     isFollowing: state.usersPage.isFollowing,
+//   };
+// };
+
 let mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersSize: state.usersPage.totalUsersSize,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    isFollowing: state.usersPage.isFollowing,
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersSize: getTotalUsersSize(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getFetchingStatus(state),
+    isFollowing: getFollowingStatus(state),
   };
 };
 

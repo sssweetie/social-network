@@ -10,6 +10,3 @@ button {
   height: 30px;
   justify-self: center;
 }
-button:hover {
-  background-color: aliceblue;
-}

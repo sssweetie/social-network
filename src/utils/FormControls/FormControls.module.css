@@ -2,6 +2,6 @@
 .formControls.error textarea {
   border: solid 1px red;
 }
-.formControls.error span {
+.formControls.error label {
   color: red;
 }

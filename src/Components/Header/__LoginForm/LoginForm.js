@@ -10,28 +10,35 @@ const Input = Element("input");
 
 const LoginForm = (props) => {
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form className={styles.loginForm} onSubmit={props.handleSubmit}>
+      <h2>Login</h2>
       <Field
         placeholder="email"
         component={Input}
         validate={[requiredField]}
         name="email"
+        className={styles.field}
       ></Field>
       <Field
         placeholder="password"
         component={Input}
         validate={[requiredField]}
         name="password"
+        type="password"
+        className={styles.field}
       ></Field>
-      <Field
-        type="checkbox"
-        component={Input}
-        validate={[requiredField]}
-        name="rememberMe"
-      ></Field>
-      remember me
+      <div className={styles.rememberMe}>
+        <label for="rememberMe">Remember me</label>
+        <Field
+          type="checkbox"
+          component={Input}
+          validate={[]}
+          name="rememberMe"
+        ></Field>
+      </div>
+
       {props.error ? <div className={styles.formError}>{props.error}</div> : ""}
-      <button>Login</button>
+      <button className={styles.login}>Login</button>
     </form>
   );
 };
