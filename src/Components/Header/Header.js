@@ -15,8 +15,15 @@ function Header(props) {
           alt="Avatar of profile"
         ></img>
       </NavLink>
-      {props.isLogin ? props.login : <NavLink to="/login">Login</NavLink>}
-      <button onClick={props.logoutUserThunkCreator}>Logout</button>
+      <div className={styles.wrapperLogout}>
+        {props.isLogin ? props.login : <NavLink to="/login">Login</NavLink>}
+        <button
+          className={styles.logout}
+          onClick={props.logoutUserThunkCreator}
+        >
+          Logout
+        </button>
+      </div>
     </header>
   );
 }

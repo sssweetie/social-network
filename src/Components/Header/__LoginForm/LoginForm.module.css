@@ -1,18 +1,18 @@
 .formError {
-  border: 1px red solid;
+  border: 1px rgba(255, 0, 0, 0.406) solid;
   padding: 4px;
   color: red;
+  background-color: rgba(255, 0, 0, 0.159);
 }
 .loginForm {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 3rem 0 3rem 0;
   margin: 2rem;
   background-color: white;
-  width: 30%;
-  height: 25%;
+  width: 40%;
+  height: 55%;
   box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.2);
   border-radius: 1px;
 }
@@ -36,7 +36,7 @@
   border: 0px;
   cursor: pointer;
   width: 18.5rem;
-  padding: 1.1rem 0;
+  height: 2rem;
   vertical-align: center;
   text-align: center;
 }
