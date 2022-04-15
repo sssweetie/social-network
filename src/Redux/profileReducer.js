@@ -1,10 +1,10 @@
 import React from "react";
 import { profileAPI } from "../API/api";
 
-const ADD_POST = "ADD-POST";
-const SET_USER_PROFILE = "SET-USER-PROFILE";
-const SET_STATUS = "SET-STATUS";
-const DELETE_POST = "DELETE-POST";
+const ADD_POST = "profileReducer/ADD-POST";
+const SET_USER_PROFILE = "profileReducer/SET-USER-PROFILE";
+const SET_STATUS = "profileReducer/SET-STATUS";
+const DELETE_POST = "profileReducer/DELETE-POST";
 
 let initialState = {
   postData: [
@@ -37,7 +37,7 @@ function profileReducer(state = initialState, action) {
     case DELETE_POST: {
       return {
         ...state,
-        postData: [...state.postData.filter((post) => post.id !== action.id)],
+        postData: state.postData.filter((post) => post.id !== action.id),
       };
     }
     default:
@@ -60,22 +60,19 @@ export const setUserProfile = (profile) => ({
 
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 
-export const setUserProfileThunkCreator = (userId) => (dispatch) => {
-  profileAPI
-    .getUserProfile(userId)
-    .then((response) => dispatch(setUserProfile(response.data)));
+export const setUserProfileThunkCreator = (userId) => async (dispatch) => {
+  let response = await profileAPI.getUserProfile(userId);
+  dispatch(setUserProfile(response.data));
 };
 
-export const getStatusThunkCreator = (userId) => (dispatch) => {
-  profileAPI
-    .getStatus(userId)
-    .then((response) => dispatch(setStatus(response.data)));
+export const getStatusThunkCreator = (userId) => async (dispatch) => {
+  let response = await profileAPI.getStatus(userId);
+  dispatch(setStatus(response.data));
 };
 
-export const updateStatusThunkCreator = (status) => (dispatch) => {
-  profileAPI.updateStatus(status).then((response) => {
-    if (response.data.resultCode === 0) dispatch(setStatus(status));
-  });
+export const updateStatusThunkCreator = (status) => async (dispatch) => {
+  let response = await profileAPI.updateStatus(status);
+  if (response.data.resultCode === 0) dispatch(setStatus(status));
 };
 
 export default profileReducer;

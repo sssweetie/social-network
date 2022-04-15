@@ -1,6 +1,6 @@
 import React from "react";
 import { loginThunkCreator } from "./loginReducer";
-const SET_INITIALIZE = "SET-INITIALIZE";
+const SET_INITIALIZE = "appReducer/SET-INITIALIZE";
 
 let initialState = {
   initialized: false,

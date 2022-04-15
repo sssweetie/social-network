@@ -1,11 +1,12 @@
 import React from "react";
 import { apiAxios } from "../API/api";
-const IS_FOLLOWED = "IS-FOLLOWED";
-const SET_USERS = "SET-USERS";
-const SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
-const SET_TOTAL_USERS = "SET-TOTAL-USERS";
-const FETCHING = "FETCHING";
-const SET_FOLLOWING = "SET-FOLLOWING";
+const IS_FOLLOWED = "userReducer/IS-FOLLOWED";
+const SET_USERS = "userReducer/SET-USERS";
+const SET_CURRENT_PAGE = "userReducer/SET-CURRENT-PAGE";
+const SET_TOTAL_USERS = "userReducer/SET-TOTAL-USERS";
+const FETCHING = "userReducer/FETCHING";
+const SET_FOLLOWING = "userReducer/SET-FOLLOWING";
+
 let initialState = {
   users: [],
   pageSize: 4,
@@ -77,47 +78,41 @@ export const setStatusFetching = (statusFetching) => ({
 });
 
 export const getUsersThunkCreator = (currentPage, pageSize) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(setStatusFetching(true));
-    apiAxios.getUsers(currentPage, pageSize).then((data) => {
-      return (
-        dispatch(setStatusFetching(false)),
-        dispatch(setUsers(data.items)),
-        dispatch(setTotalUsers(data.totalCount))
-      );
-    });
+    let data = await apiAxios.getUsers(currentPage, pageSize);
+    dispatch(setStatusFetching(false));
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsers(data.totalCount));
   };
 };
 export const onPageChangedThunkCreator = (page, pageSize) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(setStatusFetching(true));
     dispatch(setCurrentPage(page));
-    apiAxios.getUsers(page, pageSize).then((data) => {
-      dispatch(setStatusFetching(false));
-      dispatch(setUsers(data.items));
-    });
+    let data = await apiAxios.getUsers(page, pageSize);
+    dispatch(setStatusFetching(false));
+    dispatch(setUsers(data.items));
   };
 };
 export const followThunkCreator = (id) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(setFollowing(true, id));
-    apiAxios.followUser(id).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(onToggleFollow(id));
-      }
-      dispatch(setFollowing(false, id));
-    });
+    let response = await apiAxios.followUser(id);
+    if (response.data.resultCode === 0) {
+      dispatch(onToggleFollow(id));
+    }
+    dispatch(setFollowing(false, id));
   };
 };
 export const unfollowThunkCreator = (id) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(setFollowing(true, id));
-    apiAxios.unfollowUser(id).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(onToggleFollow(id));
-      }
-      dispatch(setFollowing(false, id));
-    });
+    let response = await apiAxios.unfollowUser(id);
+    if (response.data.resultCode === 0) {
+      dispatch(onToggleFollow(id));
+    }
+    dispatch(setFollowing(false, id));
   };
 };
 

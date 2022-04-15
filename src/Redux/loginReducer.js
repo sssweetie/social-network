@@ -1,8 +1,8 @@
 import React from "react";
 import { stopSubmit } from "redux-form";
 import { apiAxios, loginAPI } from "../API/api";
-const SET_LOGIN_USER_DATA = "SET-LOGIN-USER-DATA";
-const LOGIN_USER = "LOGIN-USER";
+const SET_LOGIN_USER_DATA = "loginReducer/SET-LOGIN-USER-DATA";
+const LOGIN_USER = "loginReducer/LOGIN-USER";
 
 let initialState = {
   userId: null,
@@ -28,39 +28,34 @@ export const setLoginUserData = (userId, email, login, isLogin) => ({
 export const loginUser = (userId) => ({ type: LOGIN_USER, userId });
 
 export const loginUserThunkCreator =
-  (email, password, rememberMe) => (dispatch) => {
-    loginAPI.loginUser(email, password, rememberMe).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(loginThunkCreator());
-      } else {
-        let message =
-          response.data.messages.length > 0
-            ? response.data.messages[0]
-            : "Error";
-        dispatch(
-          stopSubmit("login", {
-            _error: message,
-          })
-        );
-      }
-    });
+  (email, password, rememberMe) => async (dispatch) => {
+    let response = await loginAPI.loginUser(email, password, rememberMe);
+    if (response.data.resultCode === 0) {
+      dispatch(loginThunkCreator());
+    } else {
+      let message =
+        response.data.messages.length > 0 ? response.data.messages[0] : "Error";
+      dispatch(
+        stopSubmit("login", {
+          _error: message,
+        })
+      );
+    }
   };
 
-export const logoutUserThunkCreator = () => (dispatch) => {
-  loginAPI.logoutUser().then((response) => {
-    if (response.data.resultCode === 0) {
-      dispatch(setLoginUserData(null, null, null, false));
-    }
-  });
+export const logoutUserThunkCreator = () => async (dispatch) => {
+  let response = await loginAPI.logoutUser();
+  if (response.data.resultCode === 0) {
+    dispatch(setLoginUserData(null, null, null, false));
+  }
 };
 
-export const loginThunkCreator = () => (dispatch) => {
-  return apiAxios.loginUser().then((response) => {
-    if (response.data.resultCode === 0) {
-      let { id, email, login } = response.data.data;
-      dispatch(setLoginUserData(id, email, login, true));
-    }
-  });
+export const loginThunkCreator = () => async (dispatch) => {
+  let response = await apiAxios.loginUser();
+  if (response.data.resultCode === 0) {
+    let { id, email, login } = response.data.data;
+    dispatch(setLoginUserData(id, email, login, true));
+  }
 };
 
 export default loginReducer;

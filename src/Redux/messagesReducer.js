@@ -1,5 +1,5 @@
 import React from "react";
-const ADD_MESSAGE = "ADD-MESSAGE";
+const ADD_MESSAGE = "messagesReducer/ADD-MESSAGE";
 let initialState = {
   dialogData: [
     {

@@ -47,17 +47,6 @@ class UsersAPI extends Component {
   }
 }
 
-// let mapStateToProps = (state) => {
-//   return {
-//     users: state.usersPage.users,
-//     pageSize: state.usersPage.pageSize,
-//     totalUsersSize: state.usersPage.totalUsersSize,
-//     currentPage: state.usersPage.currentPage,
-//     isFetching: state.usersPage.isFetching,
-//     isFollowing: state.usersPage.isFollowing,
-//   };
-// };
-
 let mapStateToProps = (state) => {
   return {
     users: getUsers(state),
