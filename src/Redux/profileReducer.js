@@ -4,6 +4,7 @@ import { profileAPI } from "../API/api";
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_STATUS = "SET-STATUS";
+const DELETE_POST = "DELETE-POST";
 
 let initialState = {
   postData: [
@@ -33,6 +34,12 @@ function profileReducer(state = initialState, action) {
     case SET_STATUS: {
       return { ...state, status: action.status };
     }
+    case DELETE_POST: {
+      return {
+        ...state,
+        postData: [...state.postData.filter((post) => post.id !== action.id)],
+      };
+    }
     default:
       return state;
   }
@@ -42,7 +49,10 @@ export const addPostActionCreator = (message) => ({
   type: ADD_POST,
   message: message,
 });
-
+export const deletePostActionCreator = (id) => ({
+  type: DELETE_POST,
+  id: id,
+});
 export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
   profile,
@@ -51,7 +61,6 @@ export const setUserProfile = (profile) => ({
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 
 export const setUserProfileThunkCreator = (userId) => (dispatch) => {
-
   profileAPI
     .getUserProfile(userId)
     .then((response) => dispatch(setUserProfile(response.data)));
