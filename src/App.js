@@ -3,13 +3,14 @@ import Navigation from "./Components/Navigation/Navigation";
 import Profile from "./Components/Profile/ProfileContainer";
 import Messages from "./Components/Messages/Messages";
 import UsersContainer from "./Components/Users/UsersContainer";
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginForm from "./Components/Header/__LoginForm/LoginForm";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import React, { Component } from "react";
 import { initializeThunkCreator } from "./Redux/appReducer";
-import { connect } from "react-redux";
+import { connect, Provider } from "react-redux";
 import Preloader from "./Components/Preloader/Preloader";
+import store from "./Redux/redux-store";
 
 class App extends Component {
   componentDidMount() {
@@ -41,6 +42,17 @@ const mapStateToProps = (state) => ({
   initialized: state.app.initialized,
 });
 
-export default connect(mapStateToProps, {
+let AppContainer = connect(mapStateToProps, {
   initializeThunkCreator,
 })(App);
+
+const MainApp = (props) => {
+  return (
+    <Router>
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    </Router>
+  );
+};
+export default MainApp;
