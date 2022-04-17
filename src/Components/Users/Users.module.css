@@ -4,11 +4,6 @@
   border-radius: 50%;
   align-self: center;
 }
-/* .flexPages {
-  display: flex;
-  background-color: rgba(212, 75, 75, 0.821);
-  width: 10%;
-} */
 .avatarName {
   grid: ava;
 }

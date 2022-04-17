@@ -7,12 +7,13 @@ function Users(props) {
     <div className={styles.grid}>
       <Paginator
         currentPage={props.currentPage}
-        totalUsersSize={props.totalUsersSize}
+        totalItemsSize={props.totalUsersSize}
         onPageChanged={props.onPageChanged}
         pageSize={props.pageSize}
       />
       {props.users.map((user) => (
         <User
+          key={user.id}
           id={user.id}
           photos={user.photos}
           followed={user.followed}

@@ -9,7 +9,7 @@ const SET_FOLLOWING = "userReducer/SET-FOLLOWING";
 
 let initialState = {
   users: [],
-  pageSize: 4,
+  pageSize: 10,
   totalUsersSize: 0,
   currentPage: 1,
   isFetching: false,
