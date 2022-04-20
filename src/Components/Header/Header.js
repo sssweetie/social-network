@@ -5,7 +5,7 @@ function Header(props) {
   return (
     <header className={styles.header}>
       <NavLink
-        to="/profile/23246"
+        to={"/profile/" + props.userId}
         className={(navData) =>
           navData.isActive ? styles.activeLink : styles.disableLink
         }

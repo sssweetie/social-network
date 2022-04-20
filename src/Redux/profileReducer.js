@@ -5,6 +5,7 @@ const ADD_POST = "profileReducer/ADD-POST";
 const SET_USER_PROFILE = "profileReducer/SET-USER-PROFILE";
 const SET_STATUS = "profileReducer/SET-STATUS";
 const DELETE_POST = "profileReducer/DELETE-POST";
+const SAVE_PHOTO = "profileReducer/SAVE-PHOTO";
 
 let initialState = {
   postData: [
@@ -40,6 +41,12 @@ function profileReducer(state = initialState, action) {
         postData: state.postData.filter((post) => post.id !== action.id),
       };
     }
+    case SAVE_PHOTO: {
+      return {
+        ...state,
+        profile: { ...state.profile, photos: action.photos },
+      };
+    }
     default:
       return state;
   }
@@ -58,6 +65,11 @@ export const setUserProfile = (profile) => ({
   profile,
 });
 
+export const savePhoto = (photos) => ({
+  type: SAVE_PHOTO,
+  photos,
+});
+
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 
 export const setUserProfileThunkCreator = (userId) => async (dispatch) => {
@@ -73,6 +85,15 @@ export const getStatusThunkCreator = (userId) => async (dispatch) => {
 export const updateStatusThunkCreator = (status) => async (dispatch) => {
   let response = await profileAPI.updateStatus(status);
   if (response.data.resultCode === 0) dispatch(setStatus(status));
+};
+
+export const savePhotoThunkCreator = (file) => async (dispatch) => {
+  debugger;
+  let response = await profileAPI.savePhoto(file);
+  if (response.data.resultCode === 0) {
+    dispatch(savePhoto(response.data.data.photos));
+    console.log(response.data.data.photos);
+  }
 };
 
 export default profileReducer;

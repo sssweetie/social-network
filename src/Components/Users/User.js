@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Users.module.css";
 import { NavLink } from "react-router-dom";
-import avatar from "./avatar.jpeg";
+import avatar from "./ava.png";
 function User({
   id,
   photos,

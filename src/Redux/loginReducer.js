@@ -3,15 +3,19 @@ import { stopSubmit } from "redux-form";
 import { apiAxios, loginAPI } from "../API/api";
 const SET_LOGIN_USER_DATA = "loginReducer/SET-LOGIN-USER-DATA";
 const LOGIN_USER = "loginReducer/LOGIN-USER";
+const CHECK_OWNER = "loginReducer/CHECK-OWNER";
 
 let initialState = {
   userId: null,
   email: null,
   login: null,
   isLogin: false,
+  isOwner: false,
 };
 function loginReducer(state = initialState, action) {
   switch (action.type) {
+    case CHECK_OWNER:
+      return { ...state, isOwner: action.status };
     case SET_LOGIN_USER_DATA:
       return { ...state, ...action.data };
     case LOGIN_USER:
@@ -20,6 +24,11 @@ function loginReducer(state = initialState, action) {
       return state;
   }
 }
+export const checkOwnerStatus = (status) => ({
+  type: CHECK_OWNER,
+  status: status,
+});
+
 export const setLoginUserData = (userId, email, login, isLogin) => ({
   type: SET_LOGIN_USER_DATA,
   data: { userId, email, login, isLogin },

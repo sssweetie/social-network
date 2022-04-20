@@ -5,9 +5,11 @@ function Profile(props) {
   return (
     <div>
       <PersonInfo
+        isOwner={props.isOwner}
         profile={props.profile}
         status={props.status}
         updateStatus={props.updateStatus}
+        savePhoto={props.savePhoto}
       ></PersonInfo>
       <Posts></Posts>
     </div>

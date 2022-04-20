@@ -7,20 +7,7 @@
 .avatarName {
   grid: ava;
 }
-.page {
-  font-weight: 700;
-  font-size: 32px;
-  color: gray;
-  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
-  padding: 0 0.5rem 0.3rem 0.5rem;
-}
-.chosenPage {
-  color: rgb(0, 0, 0);
-}
 
-.page:hover {
-  background-color: aliceblue;
-}
 .unChosenPage {
   cursor: pointer;
 }

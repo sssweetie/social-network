@@ -5,23 +5,40 @@ import {
   setUserProfileThunkCreator,
   getStatusThunkCreator,
   updateStatusThunkCreator,
+  savePhotoThunkCreator,
 } from "../../Redux/profileReducer";
+import { checkOwnerStatus } from "../../Redux/loginReducer";
 import isLoginWrapper from "../../HOC/withLoginWrapper";
 import { compose } from "redux";
 
 export class ProfileContainer extends Component {
-  componentDidMount() {
+  refreshProfile() {
     let userId = this.props.params.userId;
     if (!userId) {
       userId = this.props.userId;
     }
-    this.props.setUserProfileThunkCreator(this.props.params.userId);
-    this.props.getStatusThunkCreator(this.props.params.userId);
+    if (this.props.userId != this.props.params.userId) {
+      this.props.checkOwnerStatus(false);
+    } else {
+      this.props.checkOwnerStatus(true);
+    }
+    this.props.setUserProfileThunkCreator(userId);
+    this.props.getStatusThunkCreator(userId);
+  }
+
+  componentDidMount() {
+    this.refreshProfile();
+  }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.params.userId != prevProps.params.userId)
+      this.refreshProfile();
   }
   render() {
     return (
       <div>
         <Profile
+          savePhoto={this.props.savePhotoThunkCreator}
+          isOwner={this.props.isOwner}
           {...this.props}
           profile={this.props.profile}
           status={this.props.status}
@@ -37,6 +54,7 @@ let mapStateToProps = (state) => ({
   status: state.profilePage.status,
   userId: state.loginForm.userId,
   isLogin: state.loginForm.isLogin,
+  isOwner: state.loginForm.isOwner,
 });
 
 export default compose(
@@ -44,6 +62,8 @@ export default compose(
     setUserProfileThunkCreator,
     getStatusThunkCreator,
     updateStatusThunkCreator,
+    checkOwnerStatus,
+    savePhotoThunkCreator,
   }),
   isLoginWrapper
 )(ProfileContainer);

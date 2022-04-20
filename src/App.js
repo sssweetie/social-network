@@ -1,16 +1,25 @@
 import "./App.css";
 import Navigation from "./Components/Navigation/Navigation";
 import Profile from "./Components/Profile/ProfileContainer";
-import Messages from "./Components/Messages/Messages";
-import UsersContainer from "./Components/Users/UsersContainer";
+// import Messages from "./Components/Messages/Messages";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginForm from "./Components/Header/__LoginForm/LoginForm";
+// import LoginForm from "./Components/Header/__LoginForm/LoginForm";
 import HeaderContainer from "./Components/Header/HeaderContainer";
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { initializeThunkCreator } from "./Redux/appReducer";
 import { connect, Provider } from "react-redux";
 import Preloader from "./Components/Preloader/Preloader";
 import store from "./Redux/redux-store";
+
+const Messages = React.lazy(() => import("./Components/Messages/Messages"));
+
+const LoginForm = React.lazy(() =>
+  import("./Components/Header/__LoginForm/LoginForm")
+);
+
+const UsersContainer = React.lazy(() =>
+  import("./Components/Users/UsersContainer")
+);
 
 class App extends Component {
   componentDidMount() {
@@ -26,12 +35,14 @@ class App extends Component {
           <HeaderContainer></HeaderContainer>
           <Navigation></Navigation>
           <div className="app-wrapper-content">
-            <Routes>
-              <Route path="/messages/*" element={<Messages />}></Route>
-              <Route path="/profile/:userId" element={<Profile />}></Route>
-              <Route path="/users/*" element={<UsersContainer />}></Route>
-              <Route path="/login/*" element={<LoginForm />}></Route>
-            </Routes>
+            <React.Suspense fallback={<Preloader />}>
+              <Routes>
+                <Route path="/messages/*" element={<Messages />}></Route>
+                <Route path="/profile/:userId" element={<Profile />}></Route>
+                <Route path="/users/*" element={<UsersContainer />}></Route>
+                <Route path="/login/*" element={<LoginForm />}></Route>
+              </Routes>
+            </React.Suspense>
           </div>
         </div>
       );
@@ -40,6 +51,7 @@ class App extends Component {
 }
 const mapStateToProps = (state) => ({
   initialized: state.app.initialized,
+  userId: state.loginForm.userId,
 });
 
 let AppContainer = connect(mapStateToProps, {

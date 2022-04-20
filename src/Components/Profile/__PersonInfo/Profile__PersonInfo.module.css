@@ -1,4 +1,8 @@
 .backgroundImage {
-    width: 100%;
-    height: 600px;
-  }
+  width: 100%;
+  height: 600px;
+}
+.avatar {
+  width: 15rem;
+  height: 15rem;
+}

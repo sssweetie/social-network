@@ -10,6 +10,7 @@ export class HeaderContainer extends Component {
 let mapStateToProps = (state) => ({
   isLogin: state.loginForm.isLogin,
   login: state.loginForm.login,
+  userId: state.loginForm.userId,
 });
 export default connect(mapStateToProps, {
   logoutUserThunkCreator,

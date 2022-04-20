@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import cn from "classnames";
 import styles from "./Paginator.module.css";
-
+import { Button } from "@mui/material";
 let Paginator = ({
-  currentPage,
-  onPageChanged,
   totalItemsSize,
   pageSize,
-  portionSize = 5,
+  currentPage,
+  onPageChanged,
+  portionSize = 10,
 }) => {
   let pagesCount = Math.ceil(totalItemsSize / pageSize);
 
@@ -18,7 +18,7 @@ let Paginator = ({
 
   let portionCount = Math.ceil(pagesCount / portionSize);
 
-  let { portionNumber, setPortionNumber } = useState(1);
+  let [portionNumber, setPortionNumber] = useState(1);
 
   let leftPortion = (portionNumber - 1) * portionSize + 1;
 
@@ -27,28 +27,25 @@ let Paginator = ({
   return (
     <div className={styles.paginator}>
       {portionNumber > 1 && (
-        <button
+        <Button
+          variant="contained"
+          className={styles.backButton}
           onClick={() => {
             setPortionNumber(portionNumber - 1);
           }}
         >
           back
-        </button>
+        </Button>
       )}
       {pages
         .filter((page) => page >= leftPortion && page <= rightPortion)
         .map((page) => {
           return (
             <a
-              // className={cn(
-              //   { [styles.selectedPage]: currentPage === page },
-              //   styles.pageNumber
-              // )}
-              className={
-                currentPage === page
-                  ? styles.selectedPage + styles.pageNumber
-                  : styles.pageNumber
-              }
+              className={cn(
+                { [styles.selectedPage]: currentPage === page },
+                styles.pageNumber
+              )}
               key={page}
               onClick={(event) => {
                 onPageChanged(page);
@@ -59,13 +56,15 @@ let Paginator = ({
           );
         })}
       {portionCount > portionNumber && (
-        <button
+        <Button
+          variant="contained"
+          className={styles.nextButton}
           onClick={() => {
             setPortionNumber(portionNumber + 1);
           }}
         >
           next
-        </button>
+        </Button>
       )}
     </div>
   );
