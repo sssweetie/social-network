@@ -1,9 +1,10 @@
 import React from "react";
 import { stopSubmit } from "redux-form";
-import { apiAxios, loginAPI } from "../API/api";
+import { apiAxios, loginAPI, securityAPI } from "../API/api";
 const SET_LOGIN_USER_DATA = "loginReducer/SET-LOGIN-USER-DATA";
 const LOGIN_USER = "loginReducer/LOGIN-USER";
 const CHECK_OWNER = "loginReducer/CHECK-OWNER";
+const GET_CAPTCHA = "loginReducer/GET-CAPTCHA";
 
 let initialState = {
   userId: null,
@@ -11,6 +12,7 @@ let initialState = {
   login: null,
   isLogin: false,
   isOwner: false,
+  captcha: null,
 };
 function loginReducer(state = initialState, action) {
   switch (action.type) {
@@ -20,6 +22,8 @@ function loginReducer(state = initialState, action) {
       return { ...state, ...action.data };
     case LOGIN_USER:
       return { ...state, userId: action.userId };
+    case GET_CAPTCHA:
+      return { ...state, captcha: action.captcha };
     default:
       return state;
   }
@@ -27,6 +31,11 @@ function loginReducer(state = initialState, action) {
 export const checkOwnerStatus = (status) => ({
   type: CHECK_OWNER,
   status: status,
+});
+
+export const getCaptcha = (captcha) => ({
+  type: GET_CAPTCHA,
+  captcha: captcha,
 });
 
 export const setLoginUserData = (userId, email, login, isLogin) => ({
@@ -60,10 +69,26 @@ export const logoutUserThunkCreator = () => async (dispatch) => {
 };
 
 export const loginThunkCreator = () => async (dispatch) => {
+  debugger;
   let response = await apiAxios.loginUser();
   if (response.data.resultCode === 0) {
     let { id, email, login } = response.data.data;
     dispatch(setLoginUserData(id, email, login, true));
+  } else {
+    if (response.data.resultCode === 10) {
+      dispatch(getCaptchaThunkCreator());
+    }
+    let message =
+      response.data.messages.length > 0 ? response.data.messages[0] : "Error";
+    dispatch(stopSubmit("login", { _error: message }));
+  }
+};
+
+export const getCaptchaThunkCreator = () => async (dispatch) => {
+  const response = await securityAPI.getCaptcha();
+  if (response.data.resultCode === 0) {
+    const captcha = response.data.url;
+    dispatch(getCaptcha(captcha));
   }
 };
 

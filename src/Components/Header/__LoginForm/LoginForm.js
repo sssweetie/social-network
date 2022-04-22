@@ -3,13 +3,16 @@ import { reduxForm, Field } from "redux-form";
 import { Element } from "../../../utils/FormControls/FormControls";
 import { requiredField } from "../../../utils/Validators/validators";
 import { connect } from "react-redux";
-import { loginUserThunkCreator } from "../../../Redux/loginReducer";
+import {
+  loginUserThunkCreator,
+  getCaptchaThunkCreator,
+} from "../../../Redux/loginReducer";
 import { Navigate } from "react-router-dom";
 import styles from "./LoginForm.module.css";
 import { createField } from "../../../utils/FormControls/FormControls";
 const Input = Element("input");
 
-const LoginForm = ({ handleSubmit, error }) => {
+const LoginForm = ({ handleSubmit, error, captcha }) => {
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit}>
       <h2>Login</h2>
@@ -22,6 +25,8 @@ const LoginForm = ({ handleSubmit, error }) => {
         "password",
         styles.field
       )}
+      {captcha && <img src={captcha}> </img>}
+      {captcha && createField("captcha", Input, [requiredField], "captcha")}
       <div className={styles.rememberMe}>
         <label for="rememberMe">Remember me</label>
         {createField("", Input, [], "rememberMe", "checkbox", "")}
@@ -44,7 +49,18 @@ function LoginPage(props) {
     );
   };
   if (props.isLogin) return <Navigate return to="/profile"></Navigate>;
-  return <LoginReduxForm onSubmit={pushData}></LoginReduxForm>;
+  return (
+    <LoginReduxForm
+      onSubmit={pushData}
+      captcha={props.captcha}
+    ></LoginReduxForm>
+  );
 }
-const mapStateToProps = (state) => ({ isLogin: state.loginForm.isLogin });
-export default connect(mapStateToProps, { loginUserThunkCreator })(LoginPage);
+const mapStateToProps = (state) => ({
+  isLogin: state.loginForm.isLogin,
+  captcha: state.loginForm.captcha,
+});
+export default connect(mapStateToProps, {
+  loginUserThunkCreator,
+  getCaptchaThunkCreator,
+})(LoginPage);

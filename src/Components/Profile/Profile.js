@@ -5,6 +5,7 @@ function Profile(props) {
   return (
     <div>
       <PersonInfo
+        saveProfile={props.saveProfile}
         isOwner={props.isOwner}
         profile={props.profile}
         status={props.status}

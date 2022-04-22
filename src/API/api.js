@@ -40,6 +40,9 @@ export const profileAPI = {
       headers: { "Content-type": "multipart/form-data" },
     });
   },
+  saveProfile(profile) {
+    return instance.put(`profile`, profile);
+  },
 };
 export const loginAPI = {
   loginUser(email, password, rememberMe = false) {
@@ -51,5 +54,11 @@ export const loginAPI = {
   },
   logoutUser() {
     return instance.delete(`auth/login`);
+  },
+};
+
+export const securityAPI = {
+  getCaptcha() {
+    return instance.get(`security/get-captcha-url`);
   },
 };

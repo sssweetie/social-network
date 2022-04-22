@@ -6,6 +6,7 @@ import {
   getStatusThunkCreator,
   updateStatusThunkCreator,
   savePhotoThunkCreator,
+  saveProfileThunkCreator,
 } from "../../Redux/profileReducer";
 import { checkOwnerStatus } from "../../Redux/loginReducer";
 import isLoginWrapper from "../../HOC/withLoginWrapper";
@@ -43,6 +44,7 @@ export class ProfileContainer extends Component {
           profile={this.props.profile}
           status={this.props.status}
           updateStatus={this.props.updateStatusThunkCreator}
+          saveProfile={this.props.saveProfileThunkCreator}
         />
       </div>
     );
@@ -64,6 +66,7 @@ export default compose(
     updateStatusThunkCreator,
     checkOwnerStatus,
     savePhotoThunkCreator,
+    saveProfileThunkCreator,
   }),
   isLoginWrapper
 )(ProfileContainer);

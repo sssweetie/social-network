@@ -1,5 +1,6 @@
 import React from "react";
 import { profileAPI } from "../API/api";
+import { stopSubmit } from "redux-form";
 
 const ADD_POST = "profileReducer/ADD-POST";
 const SET_USER_PROFILE = "profileReducer/SET-USER-PROFILE";
@@ -88,12 +89,25 @@ export const updateStatusThunkCreator = (status) => async (dispatch) => {
 };
 
 export const savePhotoThunkCreator = (file) => async (dispatch) => {
-  debugger;
   let response = await profileAPI.savePhoto(file);
   if (response.data.resultCode === 0) {
     dispatch(savePhoto(response.data.data.photos));
-    console.log(response.data.data.photos);
   }
 };
 
+export const saveProfileThunkCreator =
+  (profile) => async (dispatch, getState) => {
+    let userId = getState().loginForm.userId;
+    let response = await profileAPI.saveProfile(profile);
+    if (response.data.resultCode === 0) {
+      dispatch(setUserProfileThunkCreator(userId));
+    } else {
+      dispatch(
+        stopSubmit("editProfile", {
+          _error: response.data.messages[0],
+        })
+      );
+      return Promise.reject(response.data.messages[0]);
+    }
+  };
 export default profileReducer;

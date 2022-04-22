@@ -1,11 +1,9 @@
 import "./App.css";
 import Navigation from "./Components/Navigation/Navigation";
 import Profile from "./Components/Profile/ProfileContainer";
-// import Messages from "./Components/Messages/Messages";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import LoginForm from "./Components/Header/__LoginForm/LoginForm";
 import HeaderContainer from "./Components/Header/HeaderContainer";
-import React, { Component, Suspense } from "react";
+import React, { Component } from "react";
 import { initializeThunkCreator } from "./Redux/appReducer";
 import { connect, Provider } from "react-redux";
 import Preloader from "./Components/Preloader/Preloader";
@@ -33,7 +31,7 @@ class App extends Component {
       return (
         <div className="app-wrapper">
           <HeaderContainer></HeaderContainer>
-          <Navigation></Navigation>
+          <Navigation userId={this.props.userId}></Navigation>
           <div className="app-wrapper-content">
             <React.Suspense fallback={<Preloader />}>
               <Routes>
