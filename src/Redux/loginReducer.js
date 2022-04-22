@@ -33,7 +33,7 @@ export const checkOwnerStatus = (status) => ({
   status: status,
 });
 
-export const getCaptcha = (captcha) => ({
+export const getCaptchaUrl = (captcha) => ({
   type: GET_CAPTCHA,
   captcha: captcha,
 });
@@ -46,11 +46,19 @@ export const setLoginUserData = (userId, email, login, isLogin) => ({
 export const loginUser = (userId) => ({ type: LOGIN_USER, userId });
 
 export const loginUserThunkCreator =
-  (email, password, rememberMe) => async (dispatch) => {
-    let response = await loginAPI.loginUser(email, password, rememberMe);
+  (email, password, rememberMe, captcha) => async (dispatch) => {
+    let response = await loginAPI.loginUser(
+      email,
+      password,
+      rememberMe,
+      captcha
+    );
     if (response.data.resultCode === 0) {
       dispatch(loginThunkCreator());
     } else {
+      if (response.data.resultCode === 10) {
+        dispatch(getCaptchaThunkCreator());
+      }
       let message =
         response.data.messages.length > 0 ? response.data.messages[0] : "Error";
       dispatch(
@@ -64,32 +72,22 @@ export const loginUserThunkCreator =
 export const logoutUserThunkCreator = () => async (dispatch) => {
   let response = await loginAPI.logoutUser();
   if (response.data.resultCode === 0) {
-    dispatch(setLoginUserData(null, null, null, false));
+    dispatch(setLoginUserData(null, null, null));
   }
 };
 
 export const loginThunkCreator = () => async (dispatch) => {
-  debugger;
   let response = await apiAxios.loginUser();
   if (response.data.resultCode === 0) {
     let { id, email, login } = response.data.data;
     dispatch(setLoginUserData(id, email, login, true));
-  } else {
-    if (response.data.resultCode === 10) {
-      dispatch(getCaptchaThunkCreator());
-    }
-    let message =
-      response.data.messages.length > 0 ? response.data.messages[0] : "Error";
-    dispatch(stopSubmit("login", { _error: message }));
   }
 };
 
 export const getCaptchaThunkCreator = () => async (dispatch) => {
   const response = await securityAPI.getCaptcha();
-  if (response.data.resultCode === 0) {
-    const captcha = response.data.url;
-    dispatch(getCaptcha(captcha));
-  }
+  const captcha = response.data.url;
+  dispatch(getCaptchaUrl(captcha));
 };
 
 export default loginReducer;

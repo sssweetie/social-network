@@ -45,11 +45,12 @@ export const profileAPI = {
   },
 };
 export const loginAPI = {
-  loginUser(email, password, rememberMe = false) {
+  loginUser(email, password, rememberMe = false, captcha = null) {
     return instance.post(`auth/login`, {
       email: email,
       password: password,
       rememberMe: rememberMe,
+      captcha: captcha,
     });
   },
   logoutUser() {

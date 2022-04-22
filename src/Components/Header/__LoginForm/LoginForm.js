@@ -25,7 +25,7 @@ const LoginForm = ({ handleSubmit, error, captcha }) => {
         "password",
         styles.field
       )}
-      {captcha && <img src={captcha}> </img>}
+      {captcha && <img src={captcha}></img>}
       {captcha && createField("captcha", Input, [requiredField], "captcha")}
       <div className={styles.rememberMe}>
         <label for="rememberMe">Remember me</label>
@@ -45,7 +45,8 @@ function LoginPage(props) {
     props.loginUserThunkCreator(
       formData.email,
       formData.password,
-      formData.rememberMe
+      formData.rememberMe,
+      formData.captcha
     );
   };
   if (props.isLogin) return <Navigate return to="/profile"></Navigate>;
