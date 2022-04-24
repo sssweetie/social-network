@@ -20,10 +20,19 @@ const UsersContainer = React.lazy(() =>
 );
 
 class App extends Component {
+  catchAllUnhandledErrors = (reason, promise) => {
+    alert("bla");
+  };
   componentDidMount() {
+    window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
     this.props.initializeThunkCreator();
   }
-
+  componentWillUnmount() {
+    window.removeEventListener(
+      "unhandledrejection",
+      this.catchAllUnhandledErrors
+    );
+  }
   render() {
     if (!this.props.initialized) {
       return <Preloader />;
@@ -39,6 +48,7 @@ class App extends Component {
                 <Route path="/profile/:userId" element={<Profile />}></Route>
                 <Route path="/users/*" element={<UsersContainer />}></Route>
                 <Route path="/login/*" element={<LoginForm />}></Route>
+                <Route path="*" element={<div>404 not found</div>}></Route>
               </Routes>
             </React.Suspense>
           </div>

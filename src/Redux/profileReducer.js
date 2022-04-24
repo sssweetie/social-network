@@ -89,10 +89,12 @@ export const updateStatusThunkCreator = (status) => async (dispatch) => {
 };
 
 export const savePhotoThunkCreator = (file) => async (dispatch) => {
-  let response = await profileAPI.savePhoto(file);
-  if (response.data.resultCode === 0) {
-    dispatch(savePhoto(response.data.data.photos));
-  }
+  try {
+    let response = await profileAPI.savePhoto(file);
+    if (response.data.resultCode === 0) {
+      dispatch(savePhoto(response.data.data.photos));
+    }
+  } catch (error) {}
 };
 
 export const saveProfileThunkCreator =
