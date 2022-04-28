@@ -11,11 +11,17 @@ function Navigation(props) {
             navData.isActive ? styles.activeLink : styles.disableLink
           }
         >
-          Profile
         </NavLink>
       </div>
       <div className={`${styles.item} ${styles.active}`}>
-        <a>Friends</a>
+        <NavLink
+          to={"/friends"}
+          className={(navData) =>
+            navData.isActive ? styles.activeLink : styles.disableLink
+          }
+        >
+          Friends
+        </NavLink>
       </div>
       <div className={styles.item}>
         <NavLink

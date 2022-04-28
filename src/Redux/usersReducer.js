@@ -76,6 +76,17 @@ export const setStatusFetching = (statusFetching) => ({
   type: FETCHING,
   statusFetching,
 });
+export const getFriendsThunkCreator = (currentPage, pageSize) => {
+  return async (dispatch) => {
+    dispatch(setStatusFetching(true));
+    let data = await apiAxios.getUsers(currentPage, pageSize);
+    dispatch(setStatusFetching(false));
+    let friends = data.items.filter((item) => item.followed === true);
+    console.log(friends);
+    dispatch(setUsers(friends));
+    dispatch(setTotalUsers(friends.length));
+  };
+};
 
 export const getUsersThunkCreator = (currentPage, pageSize) => {
   return async (dispatch) => {

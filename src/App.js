@@ -6,6 +6,7 @@ import HeaderContainer from "./Components/Header/HeaderContainer";
 import React, { Component } from "react";
 import { initializeThunkCreator } from "./Redux/appReducer";
 import { connect, Provider } from "react-redux";
+import FriendsContainer from "./Components/Friends/FriendsContainer";
 import Preloader from "./Components/Preloader/Preloader";
 import store from "./Redux/redux-store";
 
@@ -48,6 +49,7 @@ class App extends Component {
                 <Route path="/profile/:userId" element={<Profile />}></Route>
                 <Route path="/users/*" element={<UsersContainer />}></Route>
                 <Route path="/login/*" element={<LoginForm />}></Route>
+                <Route path="/friends/*" element={<FriendsContainer />}></Route>
                 <Route path="*" element={<div>404 not found</div>}></Route>
               </Routes>
             </React.Suspense>
