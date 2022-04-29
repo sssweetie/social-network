@@ -4,11 +4,14 @@ import { addMessageActionCreator } from "../../../Redux/messagesReducer";
 import { connect } from "react-redux";
 import isLoginWrapper from "../../../HOC/isLoginRedirect";
 import { compose } from "redux";
-
+import {
+  getMessageData,
+  getMessageNewText,
+} from "../../../Redux/selectors/messagesSelector";
 let mapStateToProps = (state) => {
   return {
-    messageNewText: state.messagesPage.messageNewText,
-    messageData: state.messagesPage.messageData,
+    messageNewText: getMessageNewText(state),
+    messageData: getMessageData(state),
   };
 };
 

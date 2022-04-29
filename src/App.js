@@ -9,7 +9,8 @@ import { connect, Provider } from "react-redux";
 import FriendsContainer from "./Components/Friends/FriendsContainer";
 import Preloader from "./Components/Preloader/Preloader";
 import store from "./Redux/redux-store";
-
+import { getInitialized } from "./Redux/selectors/appSelector";
+import { getUserId } from "./Redux/selectors/loginSelector";
 const Messages = React.lazy(() => import("./Components/Messages/Messages"));
 
 const LoginForm = React.lazy(() =>
@@ -60,8 +61,8 @@ class App extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  initialized: state.app.initialized,
-  userId: state.loginForm.userId,
+  initialized: getInitialized(state),
+  userId: getUserId(state),
 });
 
 let AppContainer = connect(mapStateToProps, {

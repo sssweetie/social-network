@@ -11,6 +11,7 @@ function Navigation(props) {
             navData.isActive ? styles.activeLink : styles.disableLink
           }
         >
+          Profile
         </NavLink>
       </div>
       <div className={`${styles.item} ${styles.active}`}>

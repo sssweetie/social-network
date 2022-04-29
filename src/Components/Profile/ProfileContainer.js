@@ -11,6 +11,12 @@ import {
 import { checkOwnerStatus } from "../../Redux/loginReducer";
 import isLoginWrapper from "../../HOC/withLoginWrapper";
 import { compose } from "redux";
+import { getProfile, getStatus } from "../../Redux/selectors/profileSelector";
+import {
+  getUserId,
+  getIsLogin,
+  getIsOwner,
+} from "../../Redux/selectors/loginSelector";
 
 export class ProfileContainer extends Component {
   refreshProfile() {
@@ -52,11 +58,11 @@ export class ProfileContainer extends Component {
 }
 
 let mapStateToProps = (state) => ({
-  profile: state.profilePage.profile,
-  status: state.profilePage.status,
-  userId: state.loginForm.userId,
-  isLogin: state.loginForm.isLogin,
-  isOwner: state.loginForm.isOwner,
+  profile: getProfile(state),
+  status: getStatus(state),
+  userId: getUserId(state),
+  isLogin: getIsLogin(state),
+  isOwner: getIsOwner(state),
 });
 
 export default compose(
