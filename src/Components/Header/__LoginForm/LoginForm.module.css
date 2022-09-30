@@ -44,7 +44,6 @@
   background-color: rgb(22, 63, 212);
 }
 .field {
-  max-width: 18rem;
-  width: 100%;
+  width: 18rem;
   height: 2rem;
 }
