@@ -1,15 +1,18 @@
-import React from "react";
-import Profile__Posts from "./Profile__Posts";
-import { addPostActionCreator } from "../../../Redux/profileReducer";
-import { connect } from "react-redux";
+import React from 'react';
 
-let mapStateToProps = (state) => {
+import { connect } from 'react-redux';
+
+import { addPostActionCreator } from '../../../Redux/profileReducer';
+
+import Profile__Posts from './Profile__Posts';
+
+const mapStateToProps = (state) => {
   return {
     postData: state.profilePage.postData,
     postNewText: state.profilePage.postNewText,
   };
 };
-let mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onClickAddNewPost: (message) => {
       dispatch(addPostActionCreator(message));

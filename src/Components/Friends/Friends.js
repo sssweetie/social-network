@@ -1,7 +1,9 @@
-import React from "react";
-import styles from "./Friends.module.css";
-import Paginator from "../Users/Paginator";
-import Friend from "./Friend";
+import React from 'react';
+
+import Paginator from '../Users/Paginator';
+
+import styles from './Friends.module.css';
+import Friend from './Friend';
 function Friends(props) {
   return (
     <div className={styles.grid}>

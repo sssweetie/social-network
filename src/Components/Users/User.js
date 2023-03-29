@@ -1,7 +1,10 @@
-import React from "react";
-import styles from "./Users.module.css";
-import { NavLink } from "react-router-dom";
-import avatar from "./ava.png";
+import React from 'react';
+
+import { NavLink } from 'react-router-dom';
+
+import styles from './Users.module.css';
+import avatar from './ava.png';
+
 function User({
   id,
   photos,
@@ -15,7 +18,7 @@ function User({
   return (
     <div key={id} className={styles.users}>
       <div className={styles.avatarName}>
-        <NavLink to={"/profile/" + id}>
+        <NavLink to={'/profile/' + id}>
           <img
             className={styles.avatar}
             src={photos.small != null ? photos.small : avatar}
@@ -26,7 +29,7 @@ function User({
         <div className={styles.name}>{name}</div>
         <div className={styles.description}>{status}</div>
         <div className={styles.location}>
-          {"user.location.country"}, {"user.location.city"}
+          {'user.location.country'}, {'user.location.city'}
         </div>
       </div>
       <div className={styles.gridButton}>

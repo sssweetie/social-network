@@ -1,9 +1,10 @@
-import React from "react";
-import Contacts from "./Contacts/Contacts";
+import React from 'react';
+
+import Contacts from './Contacts/Contacts';
 function ContactInfo(props) {
   return (
     <div>
-      Looking for a job: {props.profile.lookingForAJob ? "yes" : "no"}
+      Looking for a job: {props.profile.lookingForAJob ? 'yes' : 'no'}
       <br></br>
       {props.profile.lookingForAJob &&
         `Description: ${props.profile.lookingForAJobDescription}`}
@@ -23,7 +24,7 @@ function ContactInfo(props) {
       {props.isOwner ? (
         <button onClick={props.activateEditMode}>Edit</button>
       ) : (
-        ""
+        ''
       )}
     </div>
   );

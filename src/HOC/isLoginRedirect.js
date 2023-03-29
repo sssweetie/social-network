@@ -1,16 +1,16 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
-import { connect } from "react-redux";
-let mapStateToPropsWrapper = (state) => ({
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+const mapStateToPropsWrapper = (state) => ({
   isLogin: state.loginForm.isLogin,
 });
 
 function isLoginWrapper(Component) {
-  let ComponentContainer = (props) => {
+  const ComponentContainer = (props) => {
     if (!props.isLogin) return <Navigate return to="/login" />;
     return <Component {...props} />;
   };
-  let WithLoginComponentContainer = connect(mapStateToPropsWrapper)(
+  const WithLoginComponentContainer = connect(mapStateToPropsWrapper)(
     ComponentContainer
   );
   return WithLoginComponentContainer;

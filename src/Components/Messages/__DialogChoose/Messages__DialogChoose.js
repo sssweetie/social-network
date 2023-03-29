@@ -1,8 +1,9 @@
-import React from "react";
-import Dialog from "./_Dialog/Messages_Dialog";
-import styles from "./Messages__DialogChoose.module.css";
+import React from 'react';
+
+import Dialog from './_Dialog/Messages_Dialog';
+import styles from './Messages__DialogChoose.module.css';
 function Messages__DialogChoose(props) {
-  let elements = props.dialogData.map((props) => {
+  const elements = props.dialogData.map((props) => {
     return (
       <div className={styles.element}>
         <img className={styles.ava} src={props.src}></img>
@@ -11,11 +12,7 @@ function Messages__DialogChoose(props) {
     );
   });
 
-  return (
-    <div>
-      <div className={styles.dialogChoose}>{elements}</div>
-    </div>
-  );
+  return <div className={styles.dialogChoose}>{elements}</div>;
 }
 
 export default Messages__DialogChoose;

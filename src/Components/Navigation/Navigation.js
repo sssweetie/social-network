@@ -1,12 +1,13 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import styles from "./Navigation.module.css";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+import styles from './Navigation.module.css';
 function Navigation(props) {
   return (
     <nav className={styles.nav}>
       <div className={styles.item}>
         <NavLink
-          to={"/profile/" + props.userId}
+          to={'/profile/' + props.userId}
           className={(navData) =>
             navData.isActive ? styles.activeLink : styles.disableLink
           }
@@ -16,7 +17,7 @@ function Navigation(props) {
       </div>
       <div className={`${styles.item} ${styles.active}`}>
         <NavLink
-          to={"/friends"}
+          to={'/friends'}
           className={(navData) =>
             navData.isActive ? styles.activeLink : styles.disableLink
           }

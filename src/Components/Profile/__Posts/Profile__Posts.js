@@ -1,17 +1,20 @@
-import React from "react";
-import styles from "./Profile__Posts.module.css";
-import Profile_Post from "./_Post/Profile_Post";
-import { reduxForm, Field } from "redux-form";
+import React from 'react';
+
+import { reduxForm, Field } from 'redux-form';
+
 import {
   maxLengthCreator,
   requiredField,
-} from "../../../utils/Validators/validators";
-import { Element } from "../../../utils/FormControls/FormControls";
+} from '../../../utils/Validators/validators';
+import { Element } from '../../../utils/FormControls/FormControls';
 
-const Textarea = Element("textarea");
+import Profile_Post from './_Post/Profile_Post';
+import styles from './Profile__Posts.module.css';
+
+const Textarea = Element('textarea');
 const maxLength = maxLengthCreator(10);
 function Profile__Posts(props) {
-  let profilePostElement = props.postData.map((post) => (
+  const profilePostElement = props.postData.map((post) => (
     <Profile_Post
       key={post.id}
       message={post.message}
@@ -19,7 +22,7 @@ function Profile__Posts(props) {
     ></Profile_Post>
   ));
 
-  let addPost = (values) => {
+  const addPost = (values) => {
     props.onClickAddNewPost(values.postText);
   };
   return (
@@ -33,7 +36,7 @@ function Profile__Posts(props) {
 }
 
 const ProfilePostsForm = (props) => {
-  let someSampleItem = React.createRef();
+  const someSampleItem = React.createRef();
 
   return (
     <form onSubmit={props.handleSubmit}>
@@ -44,13 +47,13 @@ const ProfilePostsForm = (props) => {
         value={props.postNewText}
         validate={[requiredField, maxLength]}
       ></Field>
-      <Field name="addPost" component={"button"}>
+      <Field name="addPost" component={'button'}>
         Add post
       </Field>
     </form>
   );
 };
 
-const ProfilePostsRedux = reduxForm({ form: "ProfilePosts" })(ProfilePostsForm);
+const ProfilePostsRedux = reduxForm({ form: 'ProfilePosts' })(ProfilePostsForm);
 
 export default Profile__Posts;

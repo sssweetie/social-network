@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 export class Profile_ProfileStatus extends Component {
   state = {
@@ -26,7 +26,7 @@ export class Profile_ProfileStatus extends Component {
       <div>
         {!this.state.editMode ? (
           <a onDoubleClick={this.activateEditMode}>
-            {this.props.status || "-----"}
+            {this.props.status || '-----'}
           </a>
         ) : (
           <input

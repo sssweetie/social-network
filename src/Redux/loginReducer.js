@@ -1,12 +1,14 @@
-import React from "react";
-import { stopSubmit } from "redux-form";
-import { apiAxios, loginAPI, securityAPI } from "../API/api";
-const SET_LOGIN_USER_DATA = "loginReducer/SET-LOGIN-USER-DATA";
-const LOGIN_USER = "loginReducer/LOGIN-USER";
-const CHECK_OWNER = "loginReducer/CHECK-OWNER";
-const GET_CAPTCHA = "loginReducer/GET-CAPTCHA";
+import React from 'react';
+import { stopSubmit } from 'redux-form';
 
-let initialState = {
+import { apiAxios, loginAPI, securityAPI } from '../API/api';
+
+const SET_LOGIN_USER_DATA = 'loginReducer/SET-LOGIN-USER-DATA';
+const LOGIN_USER = 'loginReducer/LOGIN-USER';
+const CHECK_OWNER = 'loginReducer/CHECK-OWNER';
+const GET_CAPTCHA = 'loginReducer/GET-CAPTCHA';
+
+const initialState = {
   userId: null,
   email: null,
   login: null,
@@ -14,6 +16,7 @@ let initialState = {
   isOwner: false,
   captcha: null,
 };
+
 function loginReducer(state = initialState, action) {
   switch (action.type) {
     case CHECK_OWNER:
@@ -28,6 +31,7 @@ function loginReducer(state = initialState, action) {
       return state;
   }
 }
+
 export const checkOwnerStatus = (status) => ({
   type: CHECK_OWNER,
   status: status,
@@ -47,7 +51,7 @@ export const loginUser = (userId) => ({ type: LOGIN_USER, userId });
 
 export const loginUserThunkCreator =
   (email, password, rememberMe, captcha) => async (dispatch) => {
-    let response = await loginAPI.loginUser(
+    const response = await loginAPI.loginUser(
       email,
       password,
       rememberMe,
@@ -59,10 +63,10 @@ export const loginUserThunkCreator =
       if (response.data.resultCode === 10) {
         dispatch(getCaptchaThunkCreator());
       }
-      let message =
-        response.data.messages.length > 0 ? response.data.messages[0] : "Error";
+      const message =
+        response.data.messages.length > 0 ? response.data.messages[0] : 'Error';
       dispatch(
-        stopSubmit("login", {
+        stopSubmit('login', {
           _error: message,
         })
       );
@@ -70,16 +74,16 @@ export const loginUserThunkCreator =
   };
 
 export const logoutUserThunkCreator = () => async (dispatch) => {
-  let response = await loginAPI.logoutUser();
+  const response = await loginAPI.logoutUser();
   if (response.data.resultCode === 0) {
     dispatch(setLoginUserData(null, null, null));
   }
 };
 
 export const loginThunkCreator = () => async (dispatch) => {
-  let response = await apiAxios.loginUser();
+  const response = await apiAxios.loginUser();
   if (response.data.resultCode === 0) {
-    let { id, email, login } = response.data.data;
+    const { id, email, login } = response.data.data;
     dispatch(setLoginUserData(id, email, login, true));
   }
 };

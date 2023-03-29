@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import {
   onToggleFollow,
   setFollowing,
@@ -7,9 +8,9 @@ import {
   onPageChangedThunkCreator,
   followThunkCreator,
   unfollowThunkCreator,
-} from "../../Redux/usersReducer";
-import Users from "./Users";
-import Preloader from "../Preloader/Preloader";
+} from '../../Redux/usersReducer';
+
+import Preloader from '../Preloader/Preloader';
 import {
   getUsers,
   getCurrentPage,
@@ -17,7 +18,9 @@ import {
   getFollowingStatus,
   getPageSize,
   getTotalUsersSize,
-} from "../../Redux/selectors/userSelector";
+} from '../../Redux/selectors/userSelector';
+
+import Users from './Users';
 class UsersAPI extends Component {
   componentDidMount() {
     this.props.getUsersThunkCreator(
@@ -47,7 +50,7 @@ class UsersAPI extends Component {
   }
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     users: getUsers(state),
     pageSize: getPageSize(state),

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const getUsers = (state) => {
   return state.usersPage.users;

@@ -1,55 +1,57 @@
-import React from "react";
-import { profileAPI } from "../API/api";
-import { stopSubmit } from "redux-form";
+import React from 'react';
 
-const ADD_POST = "profileReducer/ADD-POST";
-const SET_USER_PROFILE = "profileReducer/SET-USER-PROFILE";
-const SET_STATUS = "profileReducer/SET-STATUS";
-const DELETE_POST = "profileReducer/DELETE-POST";
-const SAVE_PHOTO = "profileReducer/SAVE-PHOTO";
+import { stopSubmit } from 'redux-form';
 
-let initialState = {
+import { profileAPI } from '../API/api';
+
+const ADD_POST = 'profileReducer/ADD-POST';
+const SET_USER_PROFILE = 'profileReducer/SET-USER-PROFILE';
+const SET_STATUS = 'profileReducer/SET-STATUS';
+const DELETE_POST = 'profileReducer/DELETE-POST';
+const SAVE_PHOTO = 'profileReducer/SAVE-PHOTO';
+
+const initialState = {
   postData: [
-    { id: 0, message: "Hi everyone", likeCount: "15" },
-    { id: 1, message: "Omg why are you here", likeCount: "23" },
+    { id: 0, message: 'Hi everyone', likeCount: '15' },
+    { id: 1, message: 'Omg why are you here', likeCount: '23' },
   ],
   profile: null,
-  status: "",
+  status: '',
 };
 
 function profileReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_POST: {
-      let newPost = {
-        id: state.postData.length,
-        message: action.message,
-        likeCount: "0",
-      };
-      return {
-        ...state,
-        postData: [...state.postData, newPost],
-      };
-    }
-    case SET_USER_PROFILE: {
-      return { ...state, profile: action.profile };
-    }
-    case SET_STATUS: {
-      return { ...state, status: action.status };
-    }
-    case DELETE_POST: {
-      return {
-        ...state,
-        postData: state.postData.filter((post) => post.id !== action.id),
-      };
-    }
-    case SAVE_PHOTO: {
-      return {
-        ...state,
-        profile: { ...state.profile, photos: action.photos },
-      };
-    }
-    default:
-      return state;
+  case ADD_POST: {
+    const newPost = {
+      id: state.postData.length,
+      message: action.message,
+      likeCount: '0',
+    };
+    return {
+      ...state,
+      postData: [...state.postData, newPost],
+    };
+  }
+  case SET_USER_PROFILE: {
+    return { ...state, profile: action.profile };
+  }
+  case SET_STATUS: {
+    return { ...state, status: action.status };
+  }
+  case DELETE_POST: {
+    return {
+      ...state,
+      postData: state.postData.filter((post) => post.id !== action.id),
+    };
+  }
+  case SAVE_PHOTO: {
+    return {
+      ...state,
+      profile: { ...state.profile, photos: action.photos },
+    };
+  }
+  default:
+    return state;
   }
 }
 
@@ -74,23 +76,23 @@ export const savePhoto = (photos) => ({
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 
 export const setUserProfileThunkCreator = (userId) => async (dispatch) => {
-  let response = await profileAPI.getUserProfile(userId);
+  const response = await profileAPI.getUserProfile(userId);
   dispatch(setUserProfile(response.data));
 };
 
 export const getStatusThunkCreator = (userId) => async (dispatch) => {
-  let response = await profileAPI.getStatus(userId);
+  const response = await profileAPI.getStatus(userId);
   dispatch(setStatus(response.data));
 };
 
 export const updateStatusThunkCreator = (status) => async (dispatch) => {
-  let response = await profileAPI.updateStatus(status);
+  const response = await profileAPI.updateStatus(status);
   if (response.data.resultCode === 0) dispatch(setStatus(status));
 };
 
 export const savePhotoThunkCreator = (file) => async (dispatch) => {
   try {
-    let response = await profileAPI.savePhoto(file);
+    const response = await profileAPI.savePhoto(file);
     if (response.data.resultCode === 0) {
       dispatch(savePhoto(response.data.data.photos));
     }
@@ -99,13 +101,13 @@ export const savePhotoThunkCreator = (file) => async (dispatch) => {
 
 export const saveProfileThunkCreator =
   (profile) => async (dispatch, getState) => {
-    let userId = getState().loginForm.userId;
-    let response = await profileAPI.saveProfile(profile);
+    const userId = getState().loginForm.userId;
+    const response = await profileAPI.saveProfile(profile);
     if (response.data.resultCode === 0) {
       dispatch(setUserProfileThunkCreator(userId));
     } else {
       dispatch(
-        stopSubmit("editProfile", {
+        stopSubmit('editProfile', {
           _error: response.data.messages[0],
         })
       );

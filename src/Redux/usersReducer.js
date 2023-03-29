@@ -1,13 +1,14 @@
-import React from "react";
-import { apiAxios } from "../API/api";
-const IS_FOLLOWED = "userReducer/IS-FOLLOWED";
-const SET_USERS = "userReducer/SET-USERS";
-const SET_CURRENT_PAGE = "userReducer/SET-CURRENT-PAGE";
-const SET_TOTAL_USERS = "userReducer/SET-TOTAL-USERS";
-const FETCHING = "userReducer/FETCHING";
-const SET_FOLLOWING = "userReducer/SET-FOLLOWING";
+import React from 'react';
 
-let initialState = {
+import { apiAxios } from '../API/api';
+const IS_FOLLOWED = 'userReducer/IS-FOLLOWED';
+const SET_USERS = 'userReducer/SET-USERS';
+const SET_CURRENT_PAGE = 'userReducer/SET-CURRENT-PAGE';
+const SET_TOTAL_USERS = 'userReducer/SET-TOTAL-USERS';
+const FETCHING = 'userReducer/FETCHING';
+const SET_FOLLOWING = 'userReducer/SET-FOLLOWING';
+
+const initialState = {
   users: [],
   pageSize: 10,
   totalUsersSize: 0,
@@ -17,39 +18,39 @@ let initialState = {
 };
 function usersReducer(state = initialState, action) {
   switch (action.type) {
-    case IS_FOLLOWED: {
-      return {
-        ...state,
-        users: state.users.map((user) => {
-          if (user.id === action.userID) {
-            return { ...user, followed: !user.followed };
-          }
-          return user;
-        }),
-      };
-    }
-    case SET_USERS: {
-      return { ...state, users: action.users };
-    }
-    case SET_CURRENT_PAGE: {
-      return { ...state, currentPage: action.currentPage };
-    }
-    case SET_TOTAL_USERS: {
-      return { ...state, totalUsersSize: action.totalCount };
-    }
-    case FETCHING: {
-      return { ...state, isFetching: action.statusFetching };
-    }
-    case SET_FOLLOWING: {
-      return {
-        ...state,
-        isFollowing: action.statusFollowing
-          ? [...state.isFollowing, action.userId]
-          : state.isFollowing.filter((id) => id != action.userId),
-      };
-    }
-    default:
-      return state;
+  case IS_FOLLOWED: {
+    return {
+      ...state,
+      users: state.users.map((user) => {
+        if (user.id === action.userID) {
+          return { ...user, followed: !user.followed };
+        }
+        return user;
+      }),
+    };
+  }
+  case SET_USERS: {
+    return { ...state, users: action.users };
+  }
+  case SET_CURRENT_PAGE: {
+    return { ...state, currentPage: action.currentPage };
+  }
+  case SET_TOTAL_USERS: {
+    return { ...state, totalUsersSize: action.totalCount };
+  }
+  case FETCHING: {
+    return { ...state, isFetching: action.statusFetching };
+  }
+  case SET_FOLLOWING: {
+    return {
+      ...state,
+      isFollowing: action.statusFollowing
+        ? [...state.isFollowing, action.userId]
+        : state.isFollowing.filter((id) => id !== action.userId),
+    };
+  }
+  default:
+    return state;
   }
 }
 
@@ -79,10 +80,9 @@ export const setStatusFetching = (statusFetching) => ({
 export const getFriendsThunkCreator = (currentPage, pageSize) => {
   return async (dispatch) => {
     dispatch(setStatusFetching(true));
-    let data = await apiAxios.getUsers(currentPage, pageSize);
+    const data = await apiAxios.getUsers(currentPage, pageSize);
     dispatch(setStatusFetching(false));
-    let friends = data.items.filter((item) => item.followed === true);
-    console.log(friends);
+    const friends = data.items.filter((item) => item.followed === true);
     dispatch(setUsers(friends));
     dispatch(setTotalUsers(friends.length));
   };
@@ -91,7 +91,7 @@ export const getFriendsThunkCreator = (currentPage, pageSize) => {
 export const getUsersThunkCreator = (currentPage, pageSize) => {
   return async (dispatch) => {
     dispatch(setStatusFetching(true));
-    let data = await apiAxios.getUsers(currentPage, pageSize);
+    const data = await apiAxios.getUsers(currentPage, pageSize);
     dispatch(setStatusFetching(false));
     dispatch(setUsers(data.items));
     dispatch(setTotalUsers(data.totalCount));
@@ -101,7 +101,7 @@ export const onPageChangedThunkCreator = (page, pageSize) => {
   return async (dispatch) => {
     dispatch(setStatusFetching(true));
     dispatch(setCurrentPage(page));
-    let data = await apiAxios.getUsers(page, pageSize);
+    const data = await apiAxios.getUsers(page, pageSize);
     dispatch(setStatusFetching(false));
     dispatch(setUsers(data.items));
   };
@@ -109,7 +109,7 @@ export const onPageChangedThunkCreator = (page, pageSize) => {
 export const followThunkCreator = (id) => {
   return async (dispatch) => {
     dispatch(setFollowing(true, id));
-    let response = await apiAxios.followUser(id);
+    const response = await apiAxios.followUser(id);
     if (response.data.resultCode === 0) {
       dispatch(onToggleFollow(id));
     }
@@ -119,7 +119,7 @@ export const followThunkCreator = (id) => {
 export const unfollowThunkCreator = (id) => {
   return async (dispatch) => {
     dispatch(setFollowing(true, id));
-    let response = await apiAxios.unfollowUser(id);
+    const response = await apiAxios.unfollowUser(id);
     if (response.data.resultCode === 0) {
       dispatch(onToggleFollow(id));
     }

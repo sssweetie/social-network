@@ -1,6 +1,7 @@
-import React from "react";
-import Posts from "./__Posts/Profile__PostsContainer";
-import PersonInfo from "./__PersonInfo/Profile__PersonInfo";
+import React from 'react';
+
+import Posts from './__Posts/Profile__PostsContainer';
+import PersonInfo from './__PersonInfo/Profile__PersonInfo';
 function Profile(props) {
   return (
     <div>

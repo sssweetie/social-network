@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import Preloader from "../../Preloader/Preloader";
-import styles from "./Profile__PersonInfo.module.css";
-import ProfileStatusHooks from "./_ProfileStatus/ProfileStatusHooks";
-import avatar from "../../Users/ava.png";
-import ContactInfo from "./ContactInfo/ContactInfo";
-import EditContactInfo from "./ContactInfo/EditContactInfo";
+import React, { useState } from 'react';
+
+import Preloader from '../../Preloader/Preloader';
+
+import avatar from '../../Users/ava.png';
+
+import styles from './Profile__PersonInfo.module.css';
+import ProfileStatusHooks from './_ProfileStatus/ProfileStatusHooks';
+import ContactInfo from './ContactInfo/ContactInfo';
+import EditContactInfo from './ContactInfo/EditContactInfo';
 function Profile__PersonInfo(props) {
-  let [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   const onPhotoSelected = (event) => {
     if (event.target.files.length) {

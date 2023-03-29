@@ -1,22 +1,26 @@
-import React, { Component } from "react";
-import Profile from "./Profile";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+
+import { connect } from 'react-redux';
+
+import { compose } from 'redux';
+
 import {
   setUserProfileThunkCreator,
   getStatusThunkCreator,
   updateStatusThunkCreator,
   savePhotoThunkCreator,
   saveProfileThunkCreator,
-} from "../../Redux/profileReducer";
-import { checkOwnerStatus } from "../../Redux/loginReducer";
-import isLoginWrapper from "../../HOC/withLoginWrapper";
-import { compose } from "redux";
-import { getProfile, getStatus } from "../../Redux/selectors/profileSelector";
+} from '../../Redux/profileReducer';
+import { checkOwnerStatus } from '../../Redux/loginReducer';
+import isLoginWrapper from '../../HOC/withLoginWrapper';
+import { getProfile, getStatus } from '../../Redux/selectors/profileSelector';
 import {
   getUserId,
   getIsLogin,
   getIsOwner,
-} from "../../Redux/selectors/loginSelector";
+} from '../../Redux/selectors/loginSelector';
+
+import Profile from './Profile';
 
 export class ProfileContainer extends Component {
   refreshProfile() {
@@ -57,7 +61,7 @@ export class ProfileContainer extends Component {
   }
 }
 
-let mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
   profile: getProfile(state),
   status: getStatus(state),
   userId: getUserId(state),

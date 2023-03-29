@@ -1,18 +1,20 @@
-import React from "react";
-import { loginThunkCreator } from "./loginReducer";
-const SET_INITIALIZE = "appReducer/SET-INITIALIZE";
+import React from 'react';
 
-let initialState = {
+import { loginThunkCreator } from './loginReducer';
+
+const SET_INITIALIZE = 'appReducer/SET-INITIALIZE';
+
+const initialState = {
   initialized: false,
 };
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case SET_INITIALIZE: {
-      return { ...state, initialized: true };
-    }
-    default:
-      return state;
+  case SET_INITIALIZE: {
+    return { ...state, initialized: true };
+  }
+  default:
+    return state;
   }
 }
 
@@ -21,7 +23,7 @@ export const setInitializeActionCreator = () => ({
 });
 
 export const initializeThunkCreator = () => (dispatch) => {
-  let promise = dispatch(loginThunkCreator());
+  const promise = dispatch(loginThunkCreator());
   Promise.all([promise]).then(() => {
     dispatch(setInitializeActionCreator());
   });

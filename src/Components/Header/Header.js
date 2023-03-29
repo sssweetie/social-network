@@ -1,11 +1,14 @@
-import React from "react";
-import styles from "./Header.module.css";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+
+import { NavLink } from 'react-router-dom';
+
+import styles from './Header.module.css';
+
 function Header(props) {
   return (
     <header className={styles.header}>
       <NavLink
-        to={"/profile/" + props.userId}
+        to={'/profile/' + props.userId}
         className={(navData) =>
           navData.isActive ? styles.activeLink : styles.disableLink
         }
