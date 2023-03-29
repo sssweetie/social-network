@@ -29,7 +29,7 @@ function Profile__PersonInfo(props) {
         <img
           src={props.profile.photos.large || avatar}
           className={styles.avatar}
-        ></img>
+        />
         {editMode ? (
           <EditContactInfo
             profile={props.profile}

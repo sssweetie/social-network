@@ -1,9 +1,37 @@
-# Social Network
+# Social network (социальная сеть)
 
-Current website is developed on React, Redux, Axios and using flux method
+Данный проект представляет собой прототип социальной сети.
 
-## How to install 
-Для запуска данного репозитория необходимо клонировать его к себе на компьютер. Прописать команду `npm install` для подгрузки необходимых пакетов и npm start для запуска самого приложения. Далее в браузерной строке необходимо открыть `http://localhost:3000`
+## Стек
 
-To run this repository you need to clone it to your computer. Write the `npm install` command to download packages and `npm start` to start the application itself. The next step is in the browser line you need to open `http://localhost:3000`
+- React
+- Redux
+- axios
+- eslint
+
+## Реализованные функции
+
+- Логинизация
+- Подписка-отписка на пользователей
+- Переключение страниц с пользователями
+- Редактирование профиля (описание, фото, подробная информация)
+- Посещение чужих профилей
+
+## Как запустить приложение
+
+1. Установить необходимые зависимости
+
+```
+npm install
+```
+
+2. Запустить веб-приложение:
+
+```
+npm start
+```
+
+3. Перейти по `localhost:3000`
+
+4. Для логинизации можно использовать следующие данныs:
 

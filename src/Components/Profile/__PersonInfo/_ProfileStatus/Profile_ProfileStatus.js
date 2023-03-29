@@ -14,7 +14,6 @@ export class Profile_ProfileStatus extends Component {
   activateEditMode = () => {
     this.setState({ editMode: !this.state.editMode });
     this.props.updateStatus(this.state.status);
-    console.log(this.props.status, this.state.status);
   };
 
   onStatusChange = (event) => {

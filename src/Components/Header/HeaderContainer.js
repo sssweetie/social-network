@@ -7,7 +7,7 @@ import Header from './Header';
 
 export class HeaderContainer extends Component {
   render() {
-    return <Header {...this.props}></Header>;
+    return <Header {...this.props} />;
   }
 }
 

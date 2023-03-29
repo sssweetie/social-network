@@ -28,11 +28,10 @@ export class ProfileContainer extends Component {
     if (!userId) {
       userId = this.props.userId;
     }
-    if (this.props.userId != this.props.params.userId) {
-      this.props.checkOwnerStatus(false);
-    } else {
-      this.props.checkOwnerStatus(true);
-    }
+    if (this.props.userId !== this.props.params.userId)
+      this.props.checkOwnerStatus(true); //todo
+    else this.props.checkOwnerStatus(true);
+
     this.props.setUserProfileThunkCreator(userId);
     this.props.getStatusThunkCreator(userId);
   }
@@ -41,22 +40,20 @@ export class ProfileContainer extends Component {
     this.refreshProfile();
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.params.userId != prevProps.params.userId)
+    if (this.props.params.userId !== prevProps.params.userId)
       this.refreshProfile();
   }
   render() {
     return (
-      <div>
-        <Profile
-          savePhoto={this.props.savePhotoThunkCreator}
-          isOwner={this.props.isOwner}
-          {...this.props}
-          profile={this.props.profile}
-          status={this.props.status}
-          updateStatus={this.props.updateStatusThunkCreator}
-          saveProfile={this.props.saveProfileThunkCreator}
-        />
-      </div>
+      <Profile
+        savePhoto={this.props.savePhotoThunkCreator}
+        isOwner={this.props.isOwner}
+        {...this.props}
+        profile={this.props.profile}
+        status={this.props.status}
+        updateStatus={this.props.updateStatusThunkCreator}
+        saveProfile={this.props.saveProfileThunkCreator}
+      />
     );
   }
 }
