@@ -28,10 +28,9 @@ export class ProfileContainer extends Component {
     if (!userId) {
       userId = this.props.userId;
     }
-    if (this.props.userId !== this.props.params.userId)
-      this.props.checkOwnerStatus(true); //todo
+    if (this.props.userId != this.props.params.userId)
+      this.props.checkOwnerStatus(false);
     else this.props.checkOwnerStatus(true);
-
     this.props.setUserProfileThunkCreator(userId);
     this.props.getStatusThunkCreator(userId);
   }
